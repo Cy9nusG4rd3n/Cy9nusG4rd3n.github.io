@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Cy9nus&#39;s Blog</title>
+  
+  <subtitle>人如果没有梦想，跟咸鱼有什么区别</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://cy9nusg4rd3n.github.io/"/>
+  <updated>2018-11-11T07:15:58.096Z</updated>
+  <id>https://cy9nusg4rd3n.github.io/</id>
+  
+  <author>
+    <name>Cy9nus</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用hexo搭建本地博客</title>
+    <link href="https://cy9nusg4rd3n.github.io/2018/11/11/%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://cy9nusg4rd3n.github.io/2018/11/11/用hexo搭建本地博客/</id>
+    <published>2018-11-11T07:15:12.000Z</published>
+    <updated>2018-11-11T07:15:58.096Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="为什么搭博客？"><a href="#为什么搭博客？" class="headerlink" title="为什么搭博客？"></a>为什么搭博客？</h1><p><del>还不是因为无聊，学习是不可能的，这辈子都不可能学习；打LOL又嫌舍友太菜。</del><br>开个玩笑，搭建自己的博客主要还是因为记录下自己的学习成长过程嘛，队里的大佬都有自己的Blog，自己也不好意思落下，有空的上传下自己的做题的writeup或复现还是不错的。</p><h1 id="什么是Hexo？"><a href="#什么是Hexo？" class="headerlink" title="什么是Hexo？"></a>什么是Hexo？</h1><p><del>我不知道，网上教程多</del></p><blockquote><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p></blockquote><h1 id="前提环境"><a href="#前提环境" class="headerlink" title="前提环境"></a>前提环境</h1><ol><li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">node.js</a></li><li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li></ol><ul><li><p>ps:我是在Windows下做的，linux用户只需(git自带)</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install nodejs</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install npm</span><br></pre></td></tr></table></figure></li><li><p>出现以下情况则安装成功</p></li></ul><p><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181111142616.png?raw=true" alt=""><br><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181111142630.png?raw=true" alt=""></p><ul><li>然后你就可以快乐地在一个新文件夹里右键Git Bash Here<blockquote><p>$ npm install -g hexo-cli</p></blockquote></li></ul><p>成功如下</p><p><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181111143118.png?raw=true" alt=""></p><h1 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h1><ol><li>在想要建站的文件夹中(必须是空文件夹)输入如下<blockquote><p>hexo init #初始化该文件夹,需要点时间<br><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181111144359.png?raw=true" alt=""></p></blockquote></li><li><p>在文件夹发现多了些文件目录如下</p><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── <span class="variable">_config</span>.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── <span class="variable">_drafts</span></span><br><span class="line">|   └── <span class="variable">_posts</span></span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></li><li><p>_config.yml是网站配置信息<br><a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">详情</a></p></li><li>继续刚才的文件夹输入如下安装组件<blockquote><p>npm install<br><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181111145232.png?raw=true" alt=""></p></blockquote></li><li>生成静态文件和启动服务器<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo s</span></span><br></pre></td></tr></table></figure></li></ol><p><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181111145616.png?raw=true" alt=""></p><ol start="6"><li>浏览器输入<a href="http://localhost:4000/出现如下，恭喜博客初步建成" target="_blank" rel="noopener">http://localhost:4000/出现如下，恭喜博客初步建成</a><br><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181111145619.png?raw=true" alt=""></li></ol><h1 id="下面介绍一些常用hexo命令"><a href="#下面介绍一些常用hexo命令" class="headerlink" title="下面介绍一些常用hexo命令"></a>下面介绍一些常用hexo命令</h1><h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><blockquote><p>$ hexo new [layout] <title></title></p></blockquote><p>新建一篇文章。如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。</p><h2 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h2><blockquote><p>$ hexo generate</p></blockquote><p>生成静态文件,等价于<strong>hexo g</strong></p><h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><blockquote><p>$ hexo server</p></blockquote><p>启动服务器等价于<strong>hexo s</strong>。默认情况下，访问网址为： <a href="http://localhost:4000/。" target="_blank" rel="noopener">http://localhost:4000/。</a></p><h2 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h2><blockquote><p>$ hexo clean</p></blockquote><ul><li>清除缓存文件 (db.json) 和已生成的静态文件 (public)。</li><li>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。</li></ul><h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><blockquote><p>hexo deploy</p></blockquote><p>部署网站。等价于<strong>hexo d</strong></p><ul><li>ps:用这个命令要先安装扩展<blockquote><p>npm install hexo-deployer-git –save</p></blockquote></li></ul><h1 id="部署到网站的一般流程"><a href="#部署到网站的一般流程" class="headerlink" title="部署到网站的一般流程"></a>部署到网站的一般流程</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo clean</span></span><br><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure><p>不过此前一般在本地测试<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo s</span></span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyFirst</title>
+    <link href="https://cy9nusg4rd3n.github.io/2018/11/07/MyFirst/"/>
+    <id>https://cy9nusg4rd3n.github.io/2018/11/07/MyFirst/</id>
+    <published>2018-11-07T14:39:01.000Z</published>
+    <updated>2018-11-07T14:45:41.473Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="第一篇博客"><a href="#第一篇博客" class="headerlink" title="第一篇博客"></a>第一篇博客</h1><blockquote><p>Hello World！</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

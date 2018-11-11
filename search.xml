@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[用hexo搭建本地博客]]></title>
+    <url>%2F2018%2F11%2F11%2F%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[为什么搭博客？还不是因为无聊，学习是不可能的，这辈子都不可能学习；打LOL又嫌舍友太菜。开个玩笑，搭建自己的博客主要还是因为记录下自己的学习成长过程嘛，队里的大佬都有自己的Blog，自己也不好意思落下，有空的上传下自己的做题的writeup或复现还是不错的。 什么是Hexo？我不知道，网上教程多 Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 前提环境 node.js Git ps:我是在Windows下做的，linux用户只需(git自带) 12sudo apt-get install nodejssudo apt-get install npm 出现以下情况则安装成功 然后你就可以快乐地在一个新文件夹里右键Git Bash Here $ npm install -g hexo-cli 成功如下 建站 在想要建站的文件夹中(必须是空文件夹)输入如下 hexo init #初始化该文件夹,需要点时间 在文件夹发现多了些文件目录如下 12345678.├── _config.yml├── package.json├── scaffolds├── source| ├── _drafts| └── _posts└── themes _config.yml是网站配置信息详情 继续刚才的文件夹输入如下安装组件 npm install 生成静态文件和启动服务器12hexo ghexo s 浏览器输入http://localhost:4000/出现如下，恭喜博客初步建成 下面介绍一些常用hexo命令new $ hexo new [layout] 新建一篇文章。如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。 generate $ hexo generate 生成静态文件,等价于hexo g server $ hexo server 启动服务器等价于hexo s。默认情况下，访问网址为： http://localhost:4000/。 clean $ hexo clean 清除缓存文件 (db.json) 和已生成的静态文件 (public)。 在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。 deploy hexo deploy 部署网站。等价于hexo d ps:用这个命令要先安装扩展 npm install hexo-deployer-git –save 部署到网站的一般流程123hexo cleanhexo ghexo d 不过此前一般在本地测试12hexo ghexo s]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[MyFirst]]></title>
     <url>%2F2018%2F11%2F07%2FMyFirst%2F</url>
     <content type="text"><![CDATA[第一篇博客 Hello World！]]></content>

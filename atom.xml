@@ -92,11 +92,11 @@
       <category term="CTFWP" scheme="https://cy9nusg4rd3n.github.io/categories/CTFWP/"/>
     
     
+      <category term="CTF" scheme="https://cy9nusg4rd3n.github.io/tags/CTF/"/>
+    
       <category term="Misc" scheme="https://cy9nusg4rd3n.github.io/tags/Misc/"/>
     
       <category term="Web" scheme="https://cy9nusg4rd3n.github.io/tags/Web/"/>
-    
-      <category term="CTF" scheme="https://cy9nusg4rd3n.github.io/tags/CTF/"/>
     
   </entry>
   
@@ -181,9 +181,9 @@
       <category term="平台训练" scheme="https://cy9nusg4rd3n.github.io/categories/%E5%B9%B3%E5%8F%B0%E8%AE%AD%E7%BB%83/"/>
     
     
-      <category term="Web" scheme="https://cy9nusg4rd3n.github.io/tags/Web/"/>
-    
       <category term="CTF" scheme="https://cy9nusg4rd3n.github.io/tags/CTF/"/>
+    
+      <category term="Web" scheme="https://cy9nusg4rd3n.github.io/tags/Web/"/>
     
   </entry>
   
@@ -356,11 +356,11 @@
       <category term="渗透测试" scheme="https://cy9nusg4rd3n.github.io/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
-      <category term="Linux" scheme="https://cy9nusg4rd3n.github.io/tags/Linux/"/>
-    
       <category term="nmap" scheme="https://cy9nusg4rd3n.github.io/tags/nmap/"/>
     
       <category term="msf" scheme="https://cy9nusg4rd3n.github.io/tags/msf/"/>
+    
+      <category term="Linux" scheme="https://cy9nusg4rd3n.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -382,11 +382,11 @@
       <category term="CTFWP" scheme="https://cy9nusg4rd3n.github.io/categories/CTFWP/"/>
     
     
+      <category term="CTF" scheme="https://cy9nusg4rd3n.github.io/tags/CTF/"/>
+    
       <category term="Misc" scheme="https://cy9nusg4rd3n.github.io/tags/Misc/"/>
     
       <category term="Web" scheme="https://cy9nusg4rd3n.github.io/tags/Web/"/>
-    
-      <category term="CTF" scheme="https://cy9nusg4rd3n.github.io/tags/CTF/"/>
     
       <category term="Python" scheme="https://cy9nusg4rd3n.github.io/tags/Python/"/>
     
@@ -411,13 +411,13 @@
       <category term="CTFWP" scheme="https://cy9nusg4rd3n.github.io/categories/CTFWP/"/>
     
     
+      <category term="CTF" scheme="https://cy9nusg4rd3n.github.io/tags/CTF/"/>
+    
       <category term="Crypto" scheme="https://cy9nusg4rd3n.github.io/tags/Crypto/"/>
     
       <category term="Misc" scheme="https://cy9nusg4rd3n.github.io/tags/Misc/"/>
     
       <category term="Web" scheme="https://cy9nusg4rd3n.github.io/tags/Web/"/>
-    
-      <category term="CTF" scheme="https://cy9nusg4rd3n.github.io/tags/CTF/"/>
     
   </entry>
   

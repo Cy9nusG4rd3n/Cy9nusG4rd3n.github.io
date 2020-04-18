@@ -32,9 +32,9 @@
         <category>CTFWP</category>
       </categories>
       <tags>
+        <tag>CTF</tag>
         <tag>Misc</tag>
         <tag>Web</tag>
-        <tag>CTF</tag>
       </tags>
   </entry>
   <entry>
@@ -73,8 +73,8 @@
         <category>平台训练</category>
       </categories>
       <tags>
-        <tag>Web</tag>
         <tag>CTF</tag>
+        <tag>Web</tag>
       </tags>
   </entry>
   <entry>
@@ -143,9 +143,9 @@
         <category>渗透测试</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>nmap</tag>
         <tag>msf</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -156,9 +156,9 @@
         <category>CTFWP</category>
       </categories>
       <tags>
+        <tag>CTF</tag>
         <tag>Misc</tag>
         <tag>Web</tag>
-        <tag>CTF</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -170,10 +170,10 @@
         <category>CTFWP</category>
       </categories>
       <tags>
+        <tag>CTF</tag>
         <tag>Crypto</tag>
         <tag>Misc</tag>
         <tag>Web</tag>
-        <tag>CTF</tag>
       </tags>
   </entry>
   <entry>

